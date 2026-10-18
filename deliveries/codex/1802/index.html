@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Görev Masası</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1c293b;background:#f2f5fa;font-size:16px}*{box-sizing:border-box}body{margin:0}main{max-width:1060px;margin:auto;padding:28px 18px 60px}h1{font-size:1.9rem;margin:0 0 6px}h2{font-size:1.25rem;margin:0 0 18px}p{line-height:1.6}.muted{color:#56657a}.card{background:white;border:1px solid #dce3ec;border-radius:14px;padding:22px;margin-top:22px;box-shadow:0 4px 14px #20305006}.login{max-width:430px;margin:32px auto}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}label{font-weight:600;font-size:.94rem}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;border:1px solid #aab8ca;border-radius:7px;padding:10px 12px;background:#fff;color:#1c293b}textarea{min-height:95px;resize:vertical}button{border:1px solid #aab8ca;background:#fff;color:#253850;padding:10px 15px;border-radius:7px;cursor:pointer;min-height:43px;font-weight:600}button.primary{background:#2255b4;border-color:#2255b4;color:#fff}button.danger{color:#ad2331;border-color:#e7b6bc}button:hover{filter:brightness(.95)}button:disabled{opacity:.55;cursor:wait}:focus-visible{outline:3px solid #f5ad30;outline-offset:3px}[hidden]{display:none!important}.header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.account{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.counters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:23px}.counter{border:1px solid #dce3ec;background:white;border-radius:10px;padding:15px}.counter strong{display:block;font-size:1.7rem;margin-top:3px}.counter span{font-size:.85rem;color:#56657a}.layout{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:22px;align-items:start}.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;gap:9px;flex-wrap:wrap}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}.filters .field{margin-bottom:10px}.filters button{grid-column:1/-1;justify-self:start}.task-list{list-style:none;margin:18px 0 0;padding:0}.task{border-top:1px solid #dce3ec;padding:18px 0}.task:last-child{padding-bottom:0}.task h3{font-size:1.08rem;margin:0 0 9px;overflow-wrap:anywhere}.description{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.94rem;color:#46566a;margin:10px 0}.badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.badge{font-size:.78rem;border-radius:5px;padding:4px 8px;background:#edf2fa;color:#304b78}.badge.high{background:#fff0e5;color:#8d410c}.badge.done{background:#e6f5ec;color:#256540}.feedback{padding:12px 15px;border-radius:8px;margin:18px 0 0;overflow-wrap:anywhere}.feedback.error{background:#fff0f1;color:#a51d2d;border:1px solid #efc3c8}.feedback.success{background:#e9f7ee;color:#22633a;border:1px solid #bcdcc7}.empty{padding:25px 0;color:#56657a;text-align:center}.help{font-size:.88rem;border-top:1px solid #dce3ec;margin-top:22px;padding-top:12px}.help code{overflow-wrap:anywhere}.list-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.list-head h2{margin-bottom:16px}#result-count{font-size:.85rem;color:#56657a}button.full{width:100%}@media(max-width:760px){.layout{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.filters .search{grid-column:1/-1}.counters{grid-template-columns:repeat(2,1fr)}main{padding:22px 14px 40px}.card{padding:18px}.login{margin:24px auto}.header h1{font-size:1.65rem}}@media(prefers-reduced-motion:no-preference){button{transition:background .15s}}
+</style>
+</head>
+<body>
+<main>
+<section id="login-view" class="card login" aria-labelledby="login-heading">
+<h1 id="login-heading">Görev Masası</h1>
+<p class="muted">Gününüzü küçük adımlarla düzenleyin.</p>
+<form id="login-form">
+<div class="field"><label for="username">Kullanıcı adı</label><input id="username" name="username" autocomplete="username" required maxlength="120"></div>
+<div class="field"><label for="password">Parola</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+<button id="login-button" class="primary full" type="submit">Giriş yap</button>
+</form>
+<div class="help"><strong>Demo hesapları</strong><br><code>zeka / deneme-zeka-2026</code><br><code>yapar / deneme-yapar-2026</code><p>Her hesap yalnızca kendi görevlerini görür.</p></div>
+</section>
+<section id="app-view" hidden aria-label="Görev yönetimi">
+<header class="header"><div><h1>Görev Masası</h1><span class="muted">Yapılacaklar için sakin bir alan.</span></div><div class="account"><strong id="account-name"></strong><button id="logout-button" type="button">Çıkış yap</button></div></header>
+<div class="counters" aria-label="Görev sayıları">
+<div class="counter"><span>Toplam</span><strong id="count-total">0</strong></div>
+<div class="counter"><span>Yapılacak</span><strong id="count-todo">0</strong></div>
+<div class="counter"><span>Sürüyor</span><strong id="count-doing">0</strong></div>
+<div class="counter"><span>Tamamlandı</span><strong id="count-done">0</strong></div>
+</div>
+<div class="layout">
+<section class="card" aria-labelledby="form-heading">
+<h2 id="form-heading">Yeni görev</h2>
+<form id="task-form">
+<div class="field"><label for="title">Başlık</label><input id="title" name="title" required maxlength="120"></div>
+<div class="field"><label for="description">Açıklama</label><textarea id="description" name="description" maxlength="1000"></textarea></div>
+<div class="pair"><div class="field"><label for="status">Durum</label><select id="status" name="status"><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div><div class="field"><label for="priority">Öncelik</label><select id="priority" name="priority"><option value="low">Düşük</option><option value="normal" selected>Normal</option><option value="high">Yüksek</option></select></div></div>
+<div class="actions"><button id="save-button" class="primary" type="submit">Kaydet</button><button id="cancel-button" type="button" hidden>Vazgeç</button></div>
+</form>
+</section>
+<section class="card" aria-labelledby="list-heading">
+<div class="list-head"><h2 id="list-heading">Görevlerim</h2><span id="result-count" aria-live="polite"></span></div>
+<form id="filter-form" class="filters">
+<div class="field search"><label for="search">Ara</label><input id="search" name="q" type="search" placeholder="Başlık veya açıklama"></div>
+<div class="field"><label for="filter-status">Durum filtresi</label><select id="filter-status" name="status"><option value="">Tümü</option><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div>
+<div class="field"><label for="filter-priority">Öncelik filtresi</label><select id="filter-priority" name="priority"><option value="">Tümü</option><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select></div>
+<button type="submit">Filtrele</button>
+</form>
+<p id="empty-state" class="empty" hidden>Henüz görev yok. İlk görevinizi ekleyin.</p>
+<ul id="task-list" class="task-list"></ul>
+</section>
+</div>
+</section>
+<div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const statusLabels = {todo:'Yapılacak', doing:'Sürüyor', done:'Tamamlandı'};
+const priorityLabels = {low:'Düşük', normal:'Normal', high:'Yüksek'};
+let editingId = null;
+let currentUser = null;
+let generation = 0;
+let appliedFilters = new URLSearchParams();
+
+function feedback(message, error = false) {
+  const box = $('feedback');
+  box.textContent = message;
+  box.className = 'feedback ' + (error ? 'error' : 'success');
+  box.setAttribute('role', error ? 'alert' : 'status');
+  box.hidden = false;
+}
+function clearFeedback() { $('feedback').hidden = true; }
+function resetEditor() {
+  editingId = null;
+  $('task-form').reset();
+  $('form-heading').textContent = 'Yeni görev';
+  $('cancel-button').hidden = true;
+}
+function showLogin() {
+  generation++;
+  currentUser = null;
+  $('app-view').hidden = true;
+  $('login-view').hidden = false;
+  $('account-name').textContent = '';
+  $('task-list').replaceChildren();
+  $('filter-form').reset();
+  appliedFilters = new URLSearchParams();
+  resetEditor();
+}
+function showApp(username) {
+  currentUser = username;
+  $('account-name').textContent = username;
+  $('login-view').hidden = true;
+  $('app-view').hidden = false;
+  $('password').value = '';
+}
+async function api(path, options = {}) {
+  let response;
+  try {
+    response = await fetch(path, {credentials:'same-origin', ...options,
+      headers:{'Content-Type':'application/json', ...(options.headers || {})}});
+  } catch (_) {
+    throw new Error('Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.');
+  }
+  let data;
+  try { data = await response.json(); }
+  catch (_) { throw new Error('Sunucudan geçerli bir yanıt alınamadı.'); }
+  if (!response.ok) {
+    if (response.status === 401 && currentUser) showLogin();
+    const error = new Error(data.error || 'İşlem tamamlanamadı.');
+    error.status = response.status;
+    throw error;
+  }
+  return data;
+}
+function makeBadge(text, extraClass) {
+  const span = document.createElement('span');
+  span.className = 'badge ' + extraClass;
+  span.textContent = text;
+  return span;
+}
+function renderTasks(items) {
+  const list = $('task-list');
+  list.replaceChildren();
+  for (const task of items) {
+    const row = document.createElement('li');
+    row.className = 'task';
+    const heading = document.createElement('h3');
+    heading.textContent = task.title;
+    row.append(heading);
+    if (task.description) {
+      const description = document.createElement('p');
+      description.className = 'description';
+      description.textContent = task.description;
+      row.append(description);
+    }
+    const badges = document.createElement('div');
+    badges.className = 'badges';
+    badges.append(makeBadge(statusLabels[task.status], task.status), makeBadge(priorityLabels[task.priority], task.priority));
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.textContent = 'Düzenle';
+    edit.setAttribute('aria-label', task.title + ' — Düzenle');
+    edit.addEventListener('click', () => {
+      clearFeedback();
+      editingId = task.id;
+      $('title').value = task.title;
+      $('description').value = task.description;
+      $('status').value = task.status;
+      $('priority').value = task.priority;
+      $('form-heading').textContent = 'Görevi düzenle';
+      $('cancel-button').hidden = false;
+      $('title').focus();
+    });
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'danger';
+    remove.textContent = 'Sil';
+    remove.setAttribute('aria-label', task.title + ' — Sil');
+    remove.addEventListener('click', async () => {
+      if (!window.confirm('“' + task.title + '” görevini silmek istiyor musunuz?')) return;
+      remove.disabled = true;
+      edit.disabled = true;
+      clearFeedback();
+      try {
+        await api('/api/tasks/' + task.id, {method:'DELETE'});
+        if (editingId === task.id) resetEditor();
+        await refresh();
+        feedback('Görev silindi.');
+      } catch (error) { feedback(error.message, true); }
+      finally { remove.disabled = false; edit.disabled = false; }
+    });
+    actions.append(edit, remove);
+    row.append(badges, actions);
+    list.append(row);
+  }
+  $('empty-state').hidden = items.length > 0;
+  $('empty-state').textContent = appliedFilters.toString() ? 'Bu filtrelerle eşleşen görev yok.' : 'Henüz görev yok. İlk görevinizi ekleyin.';
+}
+async function refresh() {
+  const requestGeneration = ++generation;
+  const query = appliedFilters.toString();
+  const [tasks, stats] = await Promise.all([api('/api/tasks' + (query ? '?' + query : '')), api('/api/stats')]);
+  if (requestGeneration !== generation || !currentUser) return;
+  renderTasks(tasks.items);
+  $('result-count').textContent = tasks.total + ' görev';
+  for (const key of ['total', 'todo', 'doing', 'done']) $('count-' + key).textContent = stats[key];
+}
+$('login-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearFeedback();
+  $('login-button').disabled = true;
+  try {
+    const user = await api('/api/login', {method:'POST', body:JSON.stringify({username:$('username').value, password:$('password').value})});
+    showApp(user.username);
+    await refresh();
+    feedback('Giriş yapıldı.');
+    $('title').focus();
+  } catch (error) { feedback(error.message, true); }
+  finally { $('login-button').disabled = false; }
+});
+$('logout-button').addEventListener('click', async () => {
+  $('logout-button').disabled = true;
+  clearFeedback();
+  try {
+    await api('/api/logout', {method:'POST'});
+    showLogin();
+    feedback('Çıkış yapıldı.');
+    $('username').focus();
+  } catch (error) { feedback(error.message, true); }
+  finally { $('logout-button').disabled = false; }
+});
+$('task-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearFeedback();
+  if (!$('title').value.trim()) {
+    feedback('Başlık boş olamaz.', true);
+    $('title').focus();
+    return;
+  }
+  const id = editingId;
+  const body = {title:$('title').value, description:$('description').value, status:$('status').value, priority:$('priority').value};
+  $('save-button').disabled = true;
+  $('cancel-button').disabled = true;
+  try {
+    await api(id === null ? '/api/tasks' : '/api/tasks/' + id, {method:id === null ? 'POST' : 'PUT', body:JSON.stringify(body)});
+    resetEditor();
+    await refresh();
+    feedback(id === null ? 'Görev eklendi.' : 'Görev güncellendi.');
+  } catch (error) { feedback(error.message, true); }
+  finally { $('save-button').disabled = false; $('cancel-button').disabled = false; }
+});
+$('cancel-button').addEventListener('click', () => { resetEditor(); clearFeedback(); $('title').focus(); });
+$('filter-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearFeedback();
+  appliedFilters = new URLSearchParams();
+  for (const [key, value] of [['q',$('search').value], ['status',$('filter-status').value], ['priority',$('filter-priority').value]]) {
+    if (value) appliedFilters.set(key, value);
+  }
+  try { await refresh(); }
+  catch (error) { feedback(error.message, true); }
+});
+(async () => {
+  $('login-button').disabled = true;
+  try {
+    const user = await api('/api/me');
+    showApp(user.username);
+    await refresh();
+  } catch (error) {
+    if (error.status !== 401) feedback(error.message, true);
+  } finally { $('login-button').disabled = false; }
+})();
+</script>
+</body>
+</html>

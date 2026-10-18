@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Masası</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.5;
+            padding: 16px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 { margin-bottom: 16px; }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .hidden { display: none; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-weight: 500; }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        textarea { min-height: 80px; }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary { background: #007bff; color: #fff; }
+        .btn-primary:hover { background: #0056b3; }
+        .btn-danger { background: #dc3545; color: #fff; }
+        .btn-danger:hover { background: #a71d2a; }
+        .btn-secondary { background: #6c757d; color: #fff; }
+        .btn-secondary:hover { background: #545b62; }
+        .btn-sm { padding: 4px 8px; font-size: 12px; }
+        .btn-group { display: flex; gap: 8px; margin-top: 8px; }
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .filters > * { flex: 1; min-width: 120px; }
+        .stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .stat strong { color: #007bff; }
+        .task-item {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+        .task-item:last-child { border-bottom: none; }
+        .task-header { display: flex; justify-content: space-between; align-items: center; }
+        .task-title { font-weight: 600; }
+        .task-meta { font-size: 12px; color: #666; margin-top: 4px; }
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-left: 6px;
+        }
+        .badge-todo { background: #e7f3ff; color: #0056b3; }
+        .badge-doing { background: #fff3cd; color: #856404; }
+        .badge-done { background: #d4edda; color: #155724; }
+        .badge-low { background: #e2e3e5; color: #383d41; }
+        .badge-normal { background: #d1ecf1; color: #0c5460; }
+        .badge-high { background: #f8d7da; color: #721c24; }
+        .error { color: #dc3545; margin-bottom: 12px; }
+        .success { color: #28a745; margin-bottom: 12px; }
+        .empty-state { text-align: center; padding: 32px; color: #666; }
+        .auth-container { max-width: 400px; margin: 40px auto; }
+        .auth-container h2 { margin-bottom: 24px; text-align: center; }
+        .demo-info { background: #e7f3ff; padding: 12px; border-radius: 4px; margin-top: 16px; font-size: 13px; }
+        .demo-info strong { color: #0056b3; }
+        @media (max-width: 390px) {
+            .filters { flex-direction: column; }
+            .filters > * { width: 100%; }
+            .task-header { flex-direction: column; align-items: flex-start; }
+            .btn-group { width: 100%; }
+            .btn-group button { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-view" class="card auth-container">
+            <h2>Görev Masası</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Kullanıcı adı</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Parola</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Giriş yap</button>
+            </form>
+            <div class="demo-info">
+                <p><strong>Örnek hesaplar:</strong></p>
+                <p><strong>zeka</strong> / <strong>deneme-zeka-2026</strong></p>
+                <p><strong>yapar</strong> / <strong>deneme-yapar-2026</strong></p>
+            </div>
+        </div>
+
+        <div id="app-view" class="hidden">
+            <div class="card">
+                <div class="header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <h1>Görevlerim</h1>
+                    <div>
+                        <span id="username-display" style="margin-right: 12px; font-weight: 500;"></span>
+                        <button id="logout-btn" class="btn-secondary">Çıkış yap</button>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">Toplam: <strong id="stat-total">0</strong></div>
+                    <div class="stat">Yapılacak: <strong id="stat-todo">0</strong></div>
+                    <div class="stat">Sürüyor: <strong id="stat-doing">0</strong></div>
+                    <div class="stat">Tamamlandı: <strong id="stat-done">0</strong></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 12px;">Yeni Görev</h3>
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Başlık</label>
+                        <input type="text" id="task-title" name="title" required maxlength="120">
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">Açıklama</label>
+                        <textarea id="task-description" name="description" maxlength="1000"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-status">Durum</label>
+                        <select id="task-status" name="status">
+                            <option value="todo">Yapılacak</option>
+                            <option value="doing">Sürüyor</option>
+                            <option value="done">Tamamlandı</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority">Öncelik</label>
+                        <select id="task-priority" name="priority">
+                            <option value="low">Düşük</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="high">Yüksek</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-primary">Kaydet</button>
+                        <button type="button" id="cancel-edit" class="btn-secondary hidden">Vazgeç</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 12px;">Filtreler</h3>
+                <div class="filters">
+                    <input type="text" id="filter-search" placeholder="Ara">
+                    <select id="filter-status">
+                        <option value="">Durum filtresi</option>
+                        <option value="todo">Yapılacak</option>
+                        <option value="doing">Sürüyor</option>
+                        <option value="done">Tamamlandı</option>
+                    </select>
+                    <select id="filter-priority">
+                        <option value="">Öncelik filtresi</option>
+                        <option value="low">Düşük</option>
+                        <option value="normal">Normal</option>
+                        <option value="high">Yüksek</option>
+                    </select>
+                    <button type="button" id="apply-filters" class="btn-primary">Filtrele</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div id="error-message" class="error hidden"></div>
+                <div id="success-message" class="success hidden"></div>
+                <div id="task-list"></div>
+                <div id="empty-state" class="empty-state hidden">
+                    <p>Henüz görev yok. Yeni bir görev ekleyin!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSession = null;
+        let editingTaskId = null;
+
+        async function api(path, options = {}) {
+            const url = '/api' + path;
+            const response = await fetch(url, {
+                method: options.method || 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                },
+                body: options.body ? JSON.stringify(options.body) : undefined
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'API hatası');
+            }
+            return data;
+        }
+
+        function showMessage(message, type = 'error') {
+            const el = document.getElementById(type === 'error' ? 'error-message' : 'success-message');
+            el.textContent = message;
+            el.classList.remove('hidden');
+            setTimeout(() => el.classList.add('hidden'), 3000);
+        }
+
+        async function loadTasks() {
+            try {
+                const data = await api('/tasks');
+                const taskList = document.getElementById('task-list');
+                const emptyState = document.getElementById('empty-state');
+                taskList.innerHTML = '';
+                if (data.items.length === 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    data.items.forEach(task => {
+                        const div = document.createElement('div');
+                        div.className = 'task-item';
+                        div.innerHTML = `
+                            <div class="task-header">
+                                <div>
+                                    <div class="task-title">${escapeHtml(task.title)}</div>
+                                    <div class="task-meta">
+                                        ${task.description ? escapeHtml(task.description) : ''}
+                                        <span class="badge badge-${task.status}">${task.status === 'todo' ? 'Yapılacak' : task.status === 'doing' ? 'Sürüyor' : 'Tamamlandı'}</span>
+                                        <span class="badge badge-${task.priority}">${task.priority === 'low' ? 'Düşük' : task.priority === 'normal' ? 'Normal' : 'Yüksek'}</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn-secondary btn-sm" onclick="editTask(${task.id})">Düzenle</button>
+                                    <button class="btn-danger btn-sm" onclick="deleteTask(${task.id})">Sil</button>
+                                </div>
+                            </div>
+                        `;
+                        taskList.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                showMessage(e.message);
+            }
+        }
+
+        async function loadStats() {
+            try {
+                const data = await api('/stats');
+                document.getElementById('stat-total').textContent = data.total;
+                document.getElementById('stat-todo').textContent = data.todo;
+                document.getElementById('stat-doing').textContent = data.doing;
+                document.getElementById('stat-done').textContent = data.done;
+            } catch (e) {
+                showMessage(e.message);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        async function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            try {
+                const data = await api('/login', {
+                    method: 'POST',
+                    body: { username, password }
+                });
+                currentSession = data.username;
+                document.getElementById('username-display').textContent = currentSession;
+                document.getElementById('login-view').classList.add('hidden');
+                document.getElementById('app-view').classList.remove('hidden');
+                loadTasks();
+                loadStats();
+            } catch (e) {
+                showMessage(e.message);
+            }
+        }
+
+        async function logout() {
+            try {
+                await api('/logout', { method: 'POST' });
+            } catch (e) {
+                // Ignore errors
+            }
+            currentSession = null;
+            document.getElementById('login-view').classList.remove('hidden');
+            document.getElementById('app-view').classList.add('hidden');
+            document.getElementById('login-form').reset();
+        }
+
+        async function saveTask(event) {
+            event.preventDefault();
+            const title = document.getElementById('task-title').value.trim();
+            const description = document.getElementById('task-description').value.trim();
+            const status = document.getElementById('task-status').value;
+            const priority = document.getElementById('task-priority').value;
+            try {
+                if (editingTaskId) {
+                    await api(`/tasks/${editingTaskId}`, {
+                        method: 'PUT',
+                        body: { title, description, status, priority }
+                    });
+                    showMessage('Görev güncellendi', 'success');
+                } else {
+                    await api('/tasks', {
+                        method: 'POST',
+                        body: { title, description, status, priority }
+                    });
+                    showMessage('Görev eklendi', 'success');
+                }
+                document.getElementById('task-form').reset();
+                editingTaskId = null;
+                document.getElementById('cancel-edit').classList.add('hidden');
+                loadTasks();
+                loadStats();
+            } catch (e) {
+                showMessage(e.message);
+            }
+        }
+
+        async function deleteTask(id) {
+            if (!confirm('Bu görevi silmek istediğinize emin misiniz?')) return;
+            try {
+                await api(`/tasks/${id}`, { method: 'DELETE' });
+                showMessage('Görev silindi', 'success');
+                loadTasks();
+                loadStats();
+            } catch (e) {
+                showMessage(e.message);
+            }
+        }
+
+        window.editTask = async function(id) {
+            try {
+                const task = await api(`/tasks/${id}`);
+                document.getElementById('task-title').value = task.title;
+                document.getElementById('task-description').value = task.description;
+                document.getElementById('task-status').value = task.status;
+                document.getElementById('task-priority').value = task.priority;
+                editingTaskId = id;
+                document.getElementById('cancel-edit').classList.remove('hidden');
+            } catch (e) {
+                showMessage(e.message);
+            }
+        };
+
+        document.getElementById('cancel-edit').addEventListener('click', () => {
+            document.getElementById('task-form').reset();
+            editingTaskId = null;
+            document.getElementById('cancel-edit').classList.add('hidden');
+        });
+
+        document.getElementById('apply-filters').addEventListener('click', async () => {
+            const search = document.getElementById('filter-search').value;
+            const status = document.getElementById('filter-status').value;
+            const priority = document.getElementById('filter-priority').value;
+            const params = new URLSearchParams();
+            if (search) params.append('q', search);
+            if (status) params.append('status', status);
+            if (priority) params.append('priority', priority);
+            const url = '/api/tasks' + (params.toString() ? '?' + params.toString() : '');
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error);
+                const taskList = document.getElementById('task-list');
+                const emptyState = document.getElementById('empty-state');
+                taskList.innerHTML = '';
+                if (data.items.length === 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    data.items.forEach(task => {
+                        const div = document.createElement('div');
+                        div.className = 'task-item';
+                        div.innerHTML = `
+                            <div class="task-header">
+                                <div>
+                                    <div class="task-title">${escapeHtml(task.title)}</div>
+                                    <div class="task-meta">
+                                        ${task.description ? escapeHtml(task.description) : ''}
+                                        <span class="badge badge-${task.status}">${task.status === 'todo' ? 'Yapılacak' : task.status === 'doing' ? 'Sürüyor' : 'Tamamlandı'}</span>
+                                        <span class="badge badge-${task.priority}">${task.priority === 'low' ? 'Düşük' : task.priority === 'normal' ? 'Normal' : 'Yüksek'}</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn-secondary btn-sm" onclick="editTask(${task.id})">Düzenle</button>
+                                    <button class="btn-danger btn-sm" onclick="deleteTask(${task.id})">Sil</button>
+                                </div>
+                            </div>
+                        `;
+                        taskList.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                showMessage(e.message);
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', logout);
+        document.getElementById('login-form').addEventListener('submit', login);
+        document.getElementById('task-form').addEventListener('submit', saveTask);
+
+        // Load initial data if session exists
+        (async function() {
+            try {
+                const data = await api('/me');
+                currentSession = data.username;
+                document.getElementById('username-display').textContent = currentSession;
+                document.getElementById('login-view').classList.add('hidden');
+                document.getElementById('app-view').classList.remove('hidden');
+                loadTasks();
+                loadStats();
+            } catch (e) {
+                // Not logged in
+            }
+        })();
+    </script>
+</body>
+</html>

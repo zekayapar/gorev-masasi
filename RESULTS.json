@@ -1,0 +1,4645 @@
+{
+  "at": 1792290367.1496713,
+  "measurement_complete": true,
+  "models": [
+    {
+      "arm": "codex",
+      "label": "Codex · GPT-6.1 Sol/medium",
+      "trials": 3,
+      "browser_full": 3,
+      "calls": 3,
+      "first_full": 3,
+      "final_full": 3,
+      "first_points": 120,
+      "final_points": 120,
+      "max_points": 120,
+      "final_startup": 3,
+      "final_format": 3,
+      "total_call_s": 394.96498634596355,
+      "median_first_call_s": 135.45908442599466,
+      "median_trial_call_s": 135.45908442599466,
+      "input_tokens": 46215,
+      "output_tokens": 30868,
+      "cached_input_tokens": 36864,
+      "median_output_token_per_call_s": 80.35021780905238,
+      "successful_median_trial_call_s": 135.45908442599466,
+      "first_final_median_observed_s": null,
+      "finish_length_calls": 0,
+      "trials_detail": [
+        {
+          "seed": 1800,
+          "attempts": 1,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.4746302100247703
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.4746302100247703
+          }
+        },
+        {
+          "seed": 1801,
+          "attempts": 1,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.236624371027574
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.236624371027574
+          }
+        },
+        {
+          "seed": 1802,
+          "attempts": 1,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.5829701049951836
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 2.5829701049951836
+          }
+        }
+      ]
+    },
+    {
+      "arm": "qwen27tp2",
+      "label": "Qwen3.8-27B · NVFP4/TP2/MTP3",
+      "trials": 3,
+      "browser_full": 0,
+      "calls": 9,
+      "first_full": 0,
+      "final_full": 0,
+      "first_points": 0,
+      "final_points": 36,
+      "max_points": 120,
+      "final_startup": 3,
+      "final_format": 3,
+      "total_call_s": 530.0540722070145,
+      "median_first_call_s": 59.82274403003976,
+      "median_trial_call_s": 177.4965788879781,
+      "input_tokens": 74968,
+      "output_tokens": 92807,
+      "cached_input_tokens": null,
+      "median_output_token_per_call_s": 175.46200511323556,
+      "successful_median_trial_call_s": null,
+      "first_final_median_observed_s": 3.3264262700104155,
+      "finish_length_calls": 0,
+      "trials_detail": [
+        {
+          "seed": 1800,
+          "attempts": 3,
+          "first": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "closing parenthesis '}' does not match opening parenthesis '[' (<unknown>, line 169)",
+            "evaluation_s": 0.0008051060140132904
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": false,
+                "error": "(500, 401)"
+              },
+              {
+                "name": "login_cookie",
+                "pass": false,
+                "error": "(500, 200)"
+              },
+              {
+                "name": "me",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "malformed_json",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "body_limit",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "(500, {'error': 'internal_error'})"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 9,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.18786822899710387
+          }
+        },
+        {
+          "seed": 1801,
+          "attempts": 3,
+          "first": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "Dynamic execution forbidden",
+            "evaluation_s": 0.004867680021561682
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "login_cookie",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "me",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "body_limit",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 9,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.19921212899498641
+          }
+        },
+        {
+          "seed": 1802,
+          "attempts": 3,
+          "first": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "Invalid \\escape: line 2 column 7329 (char 7330)",
+            "evaluation_s": 5.848100408911705e-05
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 18,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.9355406339745969
+          }
+        }
+      ]
+    },
+    {
+      "arm": "devstral24",
+      "label": "Devstral Small 2 · FP8/TP1",
+      "trials": 3,
+      "browser_full": 0,
+      "calls": 9,
+      "first_full": 0,
+      "final_full": 0,
+      "first_points": 54,
+      "final_points": 56,
+      "max_points": 120,
+      "final_startup": 2,
+      "final_format": 2,
+      "total_call_s": 3608.9855575069087,
+      "median_first_call_s": 386.721713965002,
+      "median_trial_call_s": 1192.2288567060023,
+      "input_tokens": 82354,
+      "output_tokens": 104176,
+      "cached_input_tokens": null,
+      "median_output_token_per_call_s": 28.71102745966824,
+      "successful_median_trial_call_s": null,
+      "first_final_median_observed_s": 1.7223666799836792,
+      "finish_length_calls": 0,
+      "trials_detail": [
+        {
+          "seed": 1800,
+          "attempts": 3,
+          "first": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "unterminated string literal (detected at line 17) (<unknown>, line 17)",
+            "evaluation_s": 0.0003920329618267715
+          },
+          "final": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "unterminated string literal (detected at line 16) (<unknown>, line 16)",
+            "evaluation_s": 0.00036657502641901374
+          }
+        },
+        {
+          "seed": 1801,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "Expecting value: line 1 column 1 (char 0)"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(201, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 30,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": true,
+            "evaluation_s": 1.1740671399747953
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "Expecting value: line 1 column 1 (char 0)"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(201, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 31,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": true,
+            "evaluation_s": 1.067105449968949
+          }
+        },
+        {
+          "seed": 1802,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(201, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": "(405, 200)"
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 24,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": true,
+            "evaluation_s": 1.165106539032422
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "(200, 404)"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(201, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 25,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": true,
+            "evaluation_s": 1.0725128980120644
+          }
+        }
+      ]
+    },
+    {
+      "arm": "gptoss120",
+      "label": "GPT-OSS-120B · MXFP4/PP3",
+      "trials": 3,
+      "browser_full": 1,
+      "calls": 9,
+      "first_full": 0,
+      "final_full": 2,
+      "first_points": 71,
+      "final_points": 88,
+      "max_points": 120,
+      "final_startup": 3,
+      "final_format": 3,
+      "total_call_s": 467.1438475018949,
+      "median_first_call_s": 48.58326039998792,
+      "median_trial_call_s": 153.38882164296228,
+      "input_tokens": 64138,
+      "output_tokens": 91111,
+      "cached_input_tokens": null,
+      "median_output_token_per_call_s": 193.0690473269145,
+      "successful_median_trial_call_s": 146.75664762646193,
+      "first_final_median_observed_s": 6.319292774016503,
+      "finish_length_calls": 0,
+      "trials_detail": [
+        {
+          "seed": 1800,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "(500, 200)"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "(201, 400)"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 35,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.7534991480060853
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 1.87196950300131
+          }
+        },
+        {
+          "seed": 1801,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "(500, 200)"
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 36,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.5304889229591936
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": true
+              },
+              {
+                "name": "literal_search",
+                "pass": true
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": true
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": true
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 40,
+            "total": 40,
+            "all_pass": true,
+            "fence_removed": false,
+            "evaluation_s": 1.6059433309710585
+          }
+        },
+        {
+          "seed": 1802,
+          "attempts": 3,
+          "first": {
+            "format_pass": false,
+            "startup_pass": false,
+            "checks": [],
+            "passed": 0,
+            "total": 40,
+            "all_pass": false,
+            "error": "unterminated string literal (detected at line 435) (<unknown>, line 435)",
+            "evaluation_s": 0.002321721985936165
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": false,
+                "error": "(500, 200)"
+              },
+              {
+                "name": "login_invalid",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "login_cookie",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "me",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "malformed_json",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "body_limit",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "Remote end closed connection without response"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 8,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.1972311430145055
+          }
+        }
+      ]
+    },
+    {
+      "arm": "codernext80",
+      "label": "Qwen3-Coder-Next · FP8/PP3",
+      "trials": 3,
+      "browser_full": 0,
+      "calls": 9,
+      "first_full": 0,
+      "final_full": 0,
+      "first_points": 67,
+      "final_points": 68,
+      "max_points": 120,
+      "final_startup": 3,
+      "final_format": 3,
+      "total_call_s": 562.5715505720582,
+      "median_first_call_s": 60.90741949604126,
+      "median_trial_call_s": 190.18234829604626,
+      "input_tokens": 82221,
+      "output_tokens": 102503,
+      "cached_input_tokens": null,
+      "median_output_token_per_call_s": 180.0068326953891,
+      "successful_median_trial_call_s": null,
+      "first_final_median_observed_s": 0.4818483230192214,
+      "finish_length_calls": 0,
+      "trials_detail": [
+        {
+          "seed": 1800,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "'total'"
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": "(501, 405)"
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 34,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.2069807620136999
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": true
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": true
+              },
+              {
+                "name": "update",
+                "pass": true
+              },
+              {
+                "name": "delete",
+                "pass": true
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": true
+              },
+              {
+                "name": "owner_update",
+                "pass": true
+              },
+              {
+                "name": "owner_delete",
+                "pass": true
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": "'items'"
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "'total'"
+              },
+              {
+                "name": "invalid_title",
+                "pass": true
+              },
+              {
+                "name": "invalid_description",
+                "pass": true
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": true
+              },
+              {
+                "name": "wrong_types",
+                "pass": true
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": true
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 35,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.2156334309838712
+          }
+        },
+        {
+          "seed": 1801,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 3, 'title': 'İlk görev', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "(404, 200)"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "((404, {'error': 'Not found'}), (200, {'deleted': True}))"
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 8, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 9, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 10, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "(15, 2)"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 24, 'title': 'restart kalıcılık', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 24,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.1201614580349997
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": true
+              },
+              {
+                "name": "me",
+                "pass": true
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": true
+              },
+              {
+                "name": "create_full",
+                "pass": true
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 3, 'title': 'İlk görev', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": "(404, 200)"
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": "((404, {'error': 'Not found'}), (200, {'deleted': True}))"
+              },
+              {
+                "name": "own_list",
+                "pass": true
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 8, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 9, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 10, 'title': 'Korunan', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "owner_stats",
+                "pass": true
+              },
+              {
+                "name": "missing_id",
+                "pass": true
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": true
+              },
+              {
+                "name": "newest_first",
+                "pass": true
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": "(15, 2)"
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": "(404, 400)"
+              },
+              {
+                "name": "malformed_json",
+                "pass": true
+              },
+              {
+                "name": "root_json_type",
+                "pass": true
+              },
+              {
+                "name": "body_limit",
+                "pass": true
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": true
+              },
+              {
+                "name": "unsupported_method",
+                "pass": true
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": true
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": "({'error': 'Not found'}, {'id': 24, 'title': 'restart kalıcılık', 'description': '', 'status': 'todo', 'priority': 'normal'})"
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 24,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 1.1221479539526626
+          }
+        },
+        {
+          "seed": 1802,
+          "attempts": 3,
+          "first": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "me",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "malformed_json",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "body_limit",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 9,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.5372039999929257
+          },
+          "final": {
+            "format_pass": true,
+            "startup_pass": true,
+            "checks": [
+              {
+                "name": "health",
+                "pass": true
+              },
+              {
+                "name": "html",
+                "pass": true
+              },
+              {
+                "name": "login_invalid",
+                "pass": true
+              },
+              {
+                "name": "login_cookie",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "me",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unauth_tasks",
+                "pass": false,
+                "error": "(404, 401)"
+              },
+              {
+                "name": "unauth_stats",
+                "pass": true
+              },
+              {
+                "name": "forged_cookie",
+                "pass": true
+              },
+              {
+                "name": "create_defaults",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "create_full",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "read",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "update",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "delete",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "own_list",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_read",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_update",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_delete",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "owner_stats",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "missing_id",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unicode_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "literal_search",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "combined_filters",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "newest_first",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "filtered_total",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_title",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_description",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "invalid_enums",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unknown_keys",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "wrong_types",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "malformed_json",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "root_json_type",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "body_limit",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "origin_login",
+                "pass": true
+              },
+              {
+                "name": "origin_mutation",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "unsupported_method",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "no_file_disclosure",
+                "pass": true
+              },
+              {
+                "name": "password_storage",
+                "pass": true
+              },
+              {
+                "name": "session_logout",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "persistence",
+                "pass": false,
+                "error": ""
+              },
+              {
+                "name": "readme",
+                "pass": true
+              }
+            ],
+            "passed": 9,
+            "total": 40,
+            "all_pass": false,
+            "fence_removed": false,
+            "evaluation_s": 0.5003316919901408
+          }
+        }
+      ]
+    }
+  ],
+  "total_trials": 15,
+  "total_calls": 39,
+  "acceptance_checks_per_delivery": 40,
+  "browser_results_complete": true,
+  "human_product_code_edits": 0
+}

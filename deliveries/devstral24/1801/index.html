@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Masası</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .login-form, .task-form {
+            display: none;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.cancel {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        button.cancel:hover {
+            background-color: #d32f2f;
+        }
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #e9f7ef;
+            border-radius: 4px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #e9f7ef;
+            border-radius: 4px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 14px;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .task-list {
+            margin-bottom: 20px;
+        }
+        .task-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+        .task-item.done {
+            border-left-color: #2196F3;
+        }
+        .task-item.doing {
+            border-left-color: #FFC107;
+        }
+        .task-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .task-actions button {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        @media (max-width: 390px) {
+            .container {
+                padding: 10px;
+            }
+            .filters {
+                flex-direction: column;
+            }
+            .filter-group {
+                width: 100%;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Görev Masası</h1>
+        
+        <div class="message error" id="error-message"></div>
+        <div class="message success" id="success-message"></div>
+        
+        <div class="login-form" id="login-form">
+            <h2>Giriş Yap</h2>
+            <div class="form-group">
+                <label for="username">Kullanıcı adı</label>
+                <input type="text" id="username" placeholder="Örnek: zeka veya yapar">
+            </div>
+            <div class="form-group">
+                <label for="password">Parola</label>
+                <input type="password" id="password" placeholder="Şifre">
+            </div>
+            <button onclick="login()">Giriş yap</button>
+            <p style="margin-top: 10px; font-size: 14px;">Demo hesapları: zeka/deneme-zeka-2026, yapar/deneme-yapar-2026</p>
+        </div>
+        
+        <div class="user-info" id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <button onclick="logout()">Çıkış yap</button>
+        </div>
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat">
+                <div class="stat-value" id="total-count">0</div>
+                <div class="stat-label">Toplam</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="todo-count">0</div>
+                <div class="stat-label">Yapılacak</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="doing-count">0</div>
+                <div class="stat-label">Sürüyor</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="done-count">0</div>
+                <div class="stat-label">Tamamlandı</div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="search">Ara</label>
+                <input type="text" id="search" placeholder="Arama terimi">
+            </div>
+            <div class="filter-group">
+                <label for="status-filter">Durum filtresi</label>
+                <select id="status-filter">
+                    <option value="">Tümü</option>
+                    <option value="todo">Yapılacak</option>
+                    <option value="doing">Sürüyor</option>
+                    <option value="done">Tamamlandı</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="priority-filter">Öncelik filtresi</label>
+                <select id="priority-filter">
+                    <option value="">Tümü</option>
+                    <option value="low">Düşük</option>
+                    <option value="normal">Normal</option>
+                    <option value="high">Yüksek</option>
+                </select>
+            </div>
+            <div class="filter-group" style="display: flex; align-items: flex-end;">
+                <button onclick="applyFilters()" style="margin-top: 20px;">Filtrele</button>
+            </div>
+        </div>
+        
+        <div class="task-form" id="task-form">
+            <h2 id="form-title">Yeni Görev</h2>
+            <input type="hidden" id="task-id">
+            <div class="form-group">
+                <label for="task-title">Başlık</label>
+                <input type="text" id="task-title" required>
+            </div>
+            <div class="form-group">
+                <label for="task-description">Açıklama</label>
+                <textarea id="task-description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="task-status">Durum</label>
+                <select id="task-status">
+                    <option value="todo">Yapılacak</option>
+                    <option value="doing">Sürüyor</option>
+                    <option value="done">Tamamlandı</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="task-priority">Öncelik</label>
+                <select id="task-priority">
+                    <option value="low">Düşük</option>
+                    <option value="normal">Normal</option>
+                    <option value="high">Yüksek</option>
+                </select>
+            </div>
+            <button onclick="saveTask()">Kaydet</button>
+            <button class="cancel" onclick="cancelEdit()">Vazgeç</button>
+        </div>
+        
+        <button onclick="showTaskForm()" id="new-task-button" style="display: none;">Yeni Görev Ekle</button>
+        
+        <div class="task-list" id="task-list">
+            <p>Görevleriniz burada görüntülenecek.</p>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = null;
+        let editingTaskId = null;
+        
+        function showMessage(message, isError) {
+            const element = isError ? document.getElementById('error-message') : document.getElementById('success-message');
+            element.textContent = message;
+            element.style.display = 'block';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+        
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage('Lütfen tüm alanları doldurun', true);
+                return;
+            }
+            
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': window.location.origin
+                },
+                body: JSON.stringify({username, password})
+            })
+            .then(response => {
+                if (!response.ok) return response.json().then(err => { throw err; });
+                return response.json();
+            })
+            .then(data => {
+                currentUser = data.username;
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('username-display').textContent = `Hoş geldin, ${currentUser}`;
+                document.getElementById('new-task-button').style.display = 'block';
+                loadStats();
+                loadTasks();
+            })
+            .catch(error => {
+                showMessage(error.error || 'Giriş başarısız', true);
+            });
+        }
+        
+        function logout() {
+            fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Origin': window.location.origin
+                }
+            })
+            .then(() => {
+                currentUser = null;
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('user-info').style.display = 'none';
+                document.getElementById('new-task-button').style.display = 'none';
+                document.getElementById('task-list').innerHTML = '<p>Görevleriniz burada görüntülenecek.</p>';
+                document.getElementById('stats').style.display = 'none';
+            })
+            .catch(error => {
+                showMessage('Çıkış yapılırken hata oluştu', true);
+            });
+        }
+        
+        function loadStats() {
+            fetch('/api/stats', {
+                headers: {
+                    'Origin': window.location.origin
+                }
+            })
+            .then(response => response.json())
+            .then(stats => {
+                document.getElementById('total-count').textContent = stats.total;
+                document.getElementById('todo-count').textContent = stats.todo;
+                document.getElementById('doing-count').textContent = stats.doing;
+                document.getElementById('done-count').textContent = stats.done;
+                document.getElementById('stats').style.display = 'flex';
+            })
+            .catch(error => {
+                showMessage('İstatistikler yüklenemedi', true);
+            });
+        }
+        
+        function loadTasks() {
+            const search = document.getElementById('search').value;
+            const status = document.getElementById('status-filter').value;
+            const priority = document.getElementById('priority-filter').value;
+            
+            let url = '/api/tasks';
+            const params = [];
+            if (search) params.push(`q=${encodeURIComponent(search)}`);
+            if (status) params.push(`status=${status}`);
+            if (priority) params.push(`priority=${priority}`);
+            if (params.length > 0) url += '?' + params.join('&');
+            
+            fetch(url, {
+                headers: {
+                    'Origin': window.location.origin
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('task-list');
+                if (data.items.length === 0) {
+                    list.innerHTML = '<p>Görev bulunamadı.</p>';
+                    return;
+                }
+                
+                list.innerHTML = data.items.map(task => `
+                    <div class="task-item ${task.status}">
+                        <h3>${escapeHtml(task.title)}</h3>
+                        ${task.description ? `<p>${escapeHtml(task.description)}</p>` : ''}
+                        <div>
+                            <span>Durum: ${task.status === 'todo' ? 'Yapılacak' : task.status === 'doing' ? 'Sürüyor' : 'Tamamlandı'}</span>
+                            <span>Öncelik: ${task.priority === 'low' ? 'Düşük' : task.priority === 'normal' ? 'Normal' : 'Yüksek'}</span>
+                        </div>
+                        <div class="task-actions">
+                            <button onclick="editTask(${task.id})">Düzenle</button>
+                            <button onclick="deleteTask(${task.id})">Sil</button>
+                        </div>
+                    </div>
+                `).join('');
+            })
+            .catch(error => {
+                showMessage('Görevler yüklenemedi', true);
+            });
+        }
+        
+        function applyFilters() {
+            loadTasks();
+        }
+        
+        function showTaskForm(task = null) {
+            document.getElementById('task-form').style.display = 'block';
+            document.getElementById('form-title').textContent = task ? 'Görevi Düzenle' : 'Yeni Görev';
+            
+            if (task) {
+                editingTaskId = task.id;
+                document.getElementById('task-id').value = task.id;
+                document.getElementById('task-title').value = task.title;
+                document.getElementById('task-description').value = task.description || '';
+                document.getElementById('task-status').value = task.status;
+                document.getElementById('task-priority').value = task.priority;
+            } else {
+                editingTaskId = null;
+                document.getElementById('task-id').value = '';
+                document.getElementById('task-title').value = '';
+                document.getElementById('task-description').value = '';
+                document.getElementById('task-status').value = 'todo';
+                document.getElementById('task-priority').value = 'normal';
+            }
+        }
+        
+        function cancelEdit() {
+            document.getElementById('task-form').style.display = 'none';
+        }
+        
+        function saveTask() {
+            const title = document.getElementById('task-title').value.trim();
+            const description = document.getElementById('task-description').value;
+            const status = document.getElementById('task-status').value;
+            const priority = document.getElementById('task-priority').value;
+            
+            if (!title) {
+                showMessage('Başlık zorunludur', true);
+                return;
+            }
+            
+            const taskData = { title, description, status, priority };
+            const method = editingTaskId ? 'PUT' : 'POST';
+            const url = editingTaskId ? `/api/tasks/${editingTaskId}` : '/api/tasks';
+            
+            fetch(url, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': window.location.origin
+                },
+                body: JSON.stringify(taskData)
+            })
+            .then(response => {
+                if (!response.ok) return response.json().then(err => { throw err; });
+                return response.json();
+            })
+            .then(() => {
+                document.getElementById('task-form').style.display = 'none';
+                loadTasks();
+                loadStats();
+                showMessage(editingTaskId ? 'Görev güncellendi' : 'Görev eklendi', false);
+            })
+            .catch(error => {
+                showMessage(error.error || 'Hata oluştu', true);
+            });
+        }
+        
+        function editTask(id) {
+            fetch(`/api/tasks/${id}`, {
+                headers: {
+                    'Origin': window.location.origin
+                }
+            })
+            .then(response => response.json())
+            .then(task => showTaskForm(task))
+            .catch(error => {
+                showMessage('Görev yüklenemedi', true);
+            });
+        }
+        
+        function deleteTask(id) {
+            if (!confirm('Bu görevi silmek istediğinizden emin misiniz?')) return;
+            
+            fetch(`/api/tasks/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Origin': window.location.origin
+                }
+            })
+            .then(response => {
+                if (!response.ok) return response.json().then(err => { throw err; });
+                return response.json();
+            })
+            .then(() => {
+                loadTasks();
+                loadStats();
+                showMessage('Görev silindi', false);
+            })
+            .catch(error => {
+                showMessage(error.error || 'Hata oluştu', true);
+            });
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Check login status on page load
+        fetch('/api/me', {
+            headers: {
+                'Origin': window.location.origin
+            }
+        })
+        .then(response => {
+            if (response.ok) return response.json();
+            throw new Error('Not logged in');
+        })
+        .then(data => {
+            currentUser = data.username;
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('user-info').style.display = 'flex';
+            document.getElementById('username-display').textContent = `Hoş geldin, ${currentUser}`;
+            document.getElementById('new-task-button').style.display = 'block';
+            loadStats();
+            loadTasks();
+        })
+        .catch(() => {
+            document.getElementById('login-form').style.display = 'block';
+        });
+        
+        // Add event listeners for real-time filtering
+        document.getElementById('search').addEventListener('input', applyFilters);
+        document.getElementById('status-filter').addEventListener('change', applyFilters);
+        document.getElementById('priority-filter').addEventListener('change', applyFilters);
+    </script>
+</body>
+</html>

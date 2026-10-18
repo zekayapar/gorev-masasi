@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Görev Masası</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent-2:#1d4ed8;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--shadow:0 10px 30px rgba(15,23,42,.08)}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.brand{font-weight:700;font-size:18px}
+.userbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{background:#eef2ff;color:#3730a3;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:600}
+button{font:inherit;border:0;border-radius:10px;padding:9px 12px;cursor:pointer;background:var(--accent);color:#fff}
+button.secondary{background:#eef2ff;color:#3730a3}
+button.danger{background:#fee2e2;color:#991b1b}
+button.ghost{background:transparent;color:var(--muted)}
+button:disabled{opacity:.6;cursor:not-allowed}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--text)}
+input:focus,select:focus,textarea:focus{outline:2px solid #bfdbfe;border-color:#bfdbfe}
+.grid{display:grid;gap:12px}
+@media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}.grid.four{grid-template-columns:repeat(4,1fr)}}
+.counters{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+@media(min-width:720px){.counters{grid-template-columns:repeat(4,1fr)}}
+.counter{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fafafa}
+.counter .num{font-size:22px;font-weight:700}
+.counter .lbl{font-size:12px;color:var(--muted)}
+.filters{display:grid;gap:10px;margin:12px 0}
+@media(min-width:720px){.filters{grid-template-columns:2fr 1fr 1fr auto}}
+.tasklist{display:grid;gap:10px;margin-top:12px}
+.task{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;gap:8px}
+.task .head{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.task .title{font-weight:600;word-break:break-word}
+.task .desc{color:var(--muted);white-space:pre-wrap;word-break:break-word}
+.task .meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:4px 8px;font-size:12px;background:#f3f4f6;color:#374151}
+.pill.todo{background:#e0f2fe;color:#075985}
+.pill.doing{background:#fef3c7;color:#92400e}
+.pill.done{background:#dcfce7;color:#166534}
+.pill.low{background:#f3f4f6;color:#374151}
+.pill.normal{background:#e0e7ff;color:#3730a3}
+.pill.high{background:#fee2e2;color:#991b1b}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.msg{border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px;display:none}
+.msg.ok{display:block;background:#dcfce7;color:#166534}
+.msg.err{display:block;background:#fee2e2;color:#991b1b}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--muted)}
+.hidden{display:none}
+.login{max-width:420px;margin:40px auto}
+.demo{margin-top:12px;font-size:13px;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section id="loginView" class="card login hidden">
+    <h1>Görev Masası</h1>
+    <p>Deneme hesapları: <strong>zeka</strong> / deneme-zeka-2026 ve <strong>yapar</strong> / deneme-yapar-2026</p>
+    <form id="loginForm">
+      <label for="loginUser">Kullanıcı adı</label>
+      <input id="loginUser" name="username" autocomplete="username" required>
+      <label for="loginPass">Parola</label>
+      <input id="loginPass" name="password" type="password" autocomplete="current-password" required>
+      <div class="msg" id="loginMsg" role="alert"></div>
+      <button type="submit">Giriş yap</button>
+    </form>
+  </section>
+
+  <section id="appView" class="hidden">
+    <div class="topbar">
+      <div class="brand">Görev Masası</div>
+      <div class="userbox">
+        <span class="badge" id="userName"></span>
+        <button id="logoutBtn" class="secondary">Çıkış yap</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Görevler</h2>
+      <div class="counters" id="counters">
+        <div class="counter"><div class="num" id="cTotal">0</div><div class="lbl">Toplam</div></div>
+        <div class="counter"><div class="num" id="cTodo">0</div><div class="lbl">Yapılacak</div></div>
+        <div class="counter"><div class="num" id="cDoing">0</div><div class="lbl">Sürüyor</div></div>
+        <div class="counter"><div class="num" id="cDone">0</div><div class="lbl">Tamamlandı</div></div>
+      </div>
+
+      <div class="filters">
+        <div>
+          <label for="fQ">Ara</label>
+          <input id="fQ" placeholder="Başlık veya açıklamada ara">
+        </div>
+        <div>
+          <label for="fStatus">Durum filtresi</label>
+          <select id="fStatus">
+            <option value="">Tümü</option>
+            <option value="todo">Yapılacak</option>
+            <option value="doing">Sürüyor</option>
+            <option value="done">Tamamlandı</option>
+          </select>
+        </div>
+        <div>
+          <label for="fPriority">Öncelik filtresi</label>
+          <select id="fPriority">
+            <option value="">Tümü</option>
+            <option value="low">Düşük</option>
+            <option value="normal">Normal</option>
+            <option value="high">Yüksek</option>
+          </select>
+        </div>
+        <div style="align-self:end">
+          <button id="filterBtn" class="secondary">Filtrele</button>
+        </div>
+      </div>
+
+      <div class="msg" id="appMsg" role="status"></div>
+
+      <form id="taskForm" class="grid two" style="margin-top:10px">
+        <div>
+          <label for="tTitle">Başlık</label>
+          <input id="tTitle" maxlength="120" required>
+        </div>
+        <div>
+          <label for="tStatus">Durum</label>
+          <select id="tStatus">
+            <option value="todo">Yapılacak</option>
+            <option value="doing">Sürüyor</option>
+            <option value="done">Tamamlandı</option>
+          </select>
+        </div>
+        <div>
+          <label for="tPriority">Öncelik</label>
+          <select id="tPriority">
+            <option value="low">Düşük</option>
+            <option value="normal">Normal</option>
+            <option value="high">Yüksek</option>
+          </select>
+        </div>
+        <div>
+          <label for="tDesc">Açıklama</label>
+          <textarea id="tDesc" rows="2" maxlength="1000"></textarea>
+        </div>
+        <div class="actions" style="grid-column:1/-1">
+          <button type="submit" id="saveBtn">Kaydet</button>
+          <button type="button" id="cancelBtn" class="ghost hidden">Vazgeç</button>
+        </div>
+      </form>
+
+      <div class="tasklist" id="taskList"></div>
+      <div class="empty hidden" id="emptyState">Henüz görev yok. Yukarıdan ilk görevini ekle.</div>
+    </div>
+  </section>
+</div>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const loginView = $('loginView');
+  const appView = $('appView');
+  const loginForm = $('loginForm');
+  const loginMsg = $('loginMsg');
+  const taskForm = $('taskForm');
+  const taskList = $('taskList');
+  const emptyState = $('emptyState');
+  const appMsg = $('appMsg');
+  const cancelBtn = $('cancelBtn');
+  const saveBtn = $('saveBtn');
+  let editingId = null;
+  let msgTimer = null;
+
+  function showMsg(el, text, kind){
+    el.textContent = text || '';
+    el.className = 'msg ' + (kind || '');
+    if(msgTimer) clearTimeout(msgTimer);
+    if(text){
+      msgTimer = setTimeout(()=>{ el.textContent=''; el.className='msg'; }, 3500);
+    }
+  }
+
+  function api(path, options={}){
+    options.headers = options.headers || {};
+    if(options.body && typeof options.body !== 'string'){
+      options.body = JSON.stringify(options.body);
+      options.headers['Content-Type'] = 'application/json';
+    }
+    return fetch(path, options).then(async (res)=>{
+      const ct = res.headers.get('content-type') || '';
+      const data = ct.includes('application/json') ? await res.json() : await res.text();
+      if(!res.ok){
+        const err = new Error((data && data.error) ? data.error : 'İstek başarısız');
+        err.status = res.status;
+        throw err;
+      }
+      return data;
+    });
+  }
+
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, (ch)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch]));
+  }
+
+  function statusLabel(v){ return v==='todo'?'Yapılacak':v==='doing'?'Sürüyor':'Tamamlandı'; }
+  function priorityLabel(v){ return v==='low'?'Düşük':v==='high'?'Yüksek':'Normal'; }
+
+  function renderTasks(items){
+    taskList.innerHTML = '';
+    if(!items.length){
+      emptyState.classList.remove('hidden');
+      return;
+    }
+    emptyState.classList.add('hidden');
+    items.forEach((task)=>{
+      const row = document.createElement('div');
+      row.className = 'task';
+      const head = document.createElement('div');
+      head.className = 'head';
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = task.title;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const s = document.createElement('span');
+      s.className = 'pill ' + task.status;
+      s.textContent = statusLabel(task.status);
+      const p = document.createElement('span');
+      p.className = 'pill ' + task.priority;
+      p.textContent = priorityLabel(task.priority);
+      meta.append(s, p);
+      head.append(title, meta);
+      row.append(head);
+      if(task.description){
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = task.description;
+        row.append(desc);
+      }
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      const edit = document.createElement('button');
+      edit.type = 'button';
+      edit.className = 'secondary';
+      edit.textContent = 'Düzenle';
+      edit.addEventListener('click', ()=>startEdit(task));
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'danger';
+      del.textContent = 'Sil';
+      del.addEventListener('click', ()=>removeTask(task.id));
+      actions.append(edit, del);
+      row.append(actions);
+      taskList.append(row);
+    });
+  }
+
+  function loadTasks(){
+    const q = $('fQ').value.trim();
+    const status = $('fStatus').value;
+    const priority = $('fPriority').value;
+    const params = new URLSearchParams();
+    if(q) params.set('q', q);
+    if(status) params.set('status', status);
+    if(priority) params.set('priority', priority);
+    const qs = params.toString();
+    return api('/api/tasks' + (qs ? '?' + qs : '')).then((data)=>{
+      renderTasks(data.items || []);
+    });
+  }
+
+  function loadStats(){
+    return api('/api/stats').then((data)=>{
+      $('cTotal').textContent = data.total;
+      $('cTodo').textContent = data.todo;
+      $('cDoing').textContent = data.doing;
+      $('cDone').textContent = data.done;
+    });
+  }
+
+  function refresh(){
+    return Promise.all([loadTasks(), loadStats()]);
+  }
+
+  function startEdit(task){
+    editingId = task.id;
+    $('tTitle').value = task.title;
+    $('tDesc').value = task.description || '';
+    $('tStatus').value = task.status;
+    $('tPriority').value = task.priority;
+    saveBtn.textContent = 'Güncelle';
+    cancelBtn.classList.remove('hidden');
+    $('tTitle').focus();
+  }
+
+  function resetForm(){
+    editingId = null;
+    taskForm.reset();
+    $('tStatus').value = 'todo';
+    $('tPriority').value = 'normal';
+    saveBtn.textContent = 'Kaydet';
+    cancelBtn.classList.add('hidden');
+  }
+
+  function removeTask(id){
+    if(!confirm('Bu görevi silmek istediğine emin misin?')) return;
+    api('/api/tasks/' + id, {method:'DELETE'}).then(()=>{
+      showMsg(appMsg, 'Görev silindi.', 'ok');
+      refresh();
+    }).catch((err)=>showMsg(appMsg, err.message, 'err'));
+  }
+
+  loginForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const username = $('loginUser').value.trim();
+    const password = $('loginPass').value;
+    api('/api/login', {method:'POST', body:{username, password}}).then((data)=>{
+      showMsg(loginMsg, '', '');
+      $('userName').textContent = data.username;
+      loginView.classList.add('hidden');
+      appView.classList.remove('hidden');
+      resetForm();
+      refresh();
+    }).catch((err)=>showMsg(loginMsg, err.message, 'err'));
+  });
+
+  $('logoutBtn').addEventListener('click', ()=>{
+    api('/api/logout', {method:'POST'}).then(()=>{
+      appView.classList.add('hidden');
+      loginView.classList.remove('hidden');
+      loginForm.reset();
+      showMsg(loginMsg, '', '');
+    }).catch((err)=>showMsg(loginMsg, err.message, 'err'));
+  });
+
+  taskForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const body = {
+      title: $('tTitle').value.trim(),
+      description: $('tDesc').value,
+      status: $('tStatus').value,
+      priority: $('tPriority').value
+    };
+    if(editingId){
+      api('/api/tasks/' + editingId, {method:'PUT', body}).then(()=>{
+        showMsg(appMsg, 'Görev güncellendi.', 'ok');
+        resetForm();
+        refresh();
+      }).catch((err)=>showMsg(appMsg, err.message, 'err'));
+    } else {
+      api('/api/tasks', {method:'POST', body}).then(()=>{
+        showMsg(appMsg, 'Görev eklendi.', 'ok');
+        resetForm();
+        refresh();
+      }).catch((err)=>showMsg(appMsg, err.message, 'err'));
+    }
+  });
+
+  cancelBtn.addEventListener('click', resetForm);
+  $('fQ').addEventListener('input', loadTasks);
+  $('fStatus').addEventListener('change', loadTasks);
+  $('fPriority').addEventListener('change', loadTasks);
+  $('filterBtn').addEventListener('click', loadTasks);
+
+  api('/api/me').then((data)=>{
+    $('userName').textContent = data.username;
+    loginView.classList.add('hidden');
+    appView.classList.remove('hidden');
+    refresh();
+  }).catch(()=>{
+    loginView.classList.remove('hidden');
+    appView.classList.add('hidden');
+  });
+})();
+</script>
+</body>
+</html>

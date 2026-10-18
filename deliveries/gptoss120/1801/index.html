@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Görev Masası</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;display:flex;justify-content:center;align-items:center;height:100vh;}
+.container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);max-width:380px;width:100%;}
+h2{text-align:center;}
+label{display:block;margin-top:10px;}
+input,select,textarea{width:100%;padding:8px;margin-top:4px;box-sizing:border-box;}
+button{margin-top:12px;padding:10px;width:100%;background:#0066cc;color:#fff;border:none;border-radius:4px;cursor:pointer;}
+button:hover{background:#0055aa;}
+.task{border-bottom:1px solid #ddd;padding:8px 0;}
+.task:last-child{border:none;}
+.actions button{margin-right:5px;background:#777;}
+.actions button:hover{background:#555;}
+.filter{margin-top:12px;display:flex;gap:5px;flex-wrap:wrap;}
+.filter input, .filter select{flex:1;}
+.message{margin-top:10px;padding:8px;border-radius:4px;}
+.success{background:#e0f7e9;color:#2e7d32;}
+.error{background:#ffebee;color:#c62828;}
+@media (max-width:390px){.container{margin:10px;}}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+<h2>Görev Masası</h2>
+<div id="login-section">
+<label for="username">Kullanıcı adı</label>
+<input type="text" id="username" autocomplete="username">
+<label for="password">Parola</label>
+<input type="password" id="password" autocomplete="current-password">
+<button id="loginBtn">Giriş yap</button>
+<p>Demo hesaplar:<br>zeka / deneme-zeka-2026<br>yapar / deneme-yapar-2026</p>
+<div id="login-msg" class="message" style="display:none;"></div>
+</div>
+<div id="main-section" style="display:none;">
+<p>Hoş geldiniz, <span id="userDisplay"></span>! <button id="logoutBtn">Çıkış yap</button></p>
+<div class="filter">
+<input type="text" id="searchQ" placeholder="Ara">
+<select id="filterStatus"><option value="">Durum filtresi</option><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select>
+<select id="filterPriority"><option value="">Öncelik filtresi</option><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select>
+<button id="applyFilterBtn">Filtrele</button>
+</div>
+<h3>Görevler</h3>
+<div id="taskList"></div>
+<h3>Yeni Görev</h3>
+<form id="taskForm">
+<label for="title">Başlık</label>
+<input type="text" id="title" required>
+<label for="description">Açıklama</label>
+<textarea id="description"></textarea>
+<label for="status">Durum</label>
+<select id="status">
+<option value="todo">Yapılacak</option>
+<option value="doing">Sürüyor</option>
+<option value="done">Tamamlandı</option>
+</select>
+<label for="priority">Öncelik</label>
+<select id="priority">
+<option value="low">Düşük</option>
+<option value="normal" selected>Normal</option>
+<option value="high">Yüksek</option>
+</select>
+<button type="submit" id="saveBtn">Kaydet</button>
+<button type="button" id="cancelEditBtn" style="display:none;">Vazgeç</button>
+</form>
+<div id="task-msg" class="message" style="display:none;"></div>
+<div id="stats"></div>
+</div>
+</div>
+<script>
+const apiBase = '';
+let editId = null;
+function showMessage(el, text, success){
+  el.textContent = text;
+  el.className = 'message ' + (success ? 'success' : 'error');
+  el.style.display = 'block';
+  setTimeout(()=>{el.style.display='none';},3000);
+}
+function fetchJSON(url, opts){
+  return fetch(url, opts).then(r=>{
+    if (!r.ok) return r.json().then(e=>Promise.reject(e));
+    return r.json();
+  });
+}
+function loadUser(){
+  fetchJSON('/api/me')
+    .then(data=>{document.getElementById('userDisplay').textContent=data.username;document.getElementById('login-section').style.display='none';document.getElementById('main-section').style.display='block';loadTasks();loadStats();})
+    .catch(()=>{document.getElementById('login-section').style.display='block';});
+}
+function login(){
+  const username=document.getElementById('username').value.trim();
+  const password=document.getElementById('password').value;
+  fetchJSON('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password}),credentials:'include'})
+    .then(()=>{loadUser();})
+    .catch(e=>{showMessage(document.getElementById('login-msg'), e.error||'Giriş başarısız', false);});
+}
+function logout(){
+  fetchJSON('/api/logout',{method:'POST',credentials:'include'}).then(()=>{location.reload();});
+}
+function loadTasks(){
+  const q=document.getElementById('searchQ').value;
+  const status=document.getElementById('filterStatus').value;
+  const priority=document.getElementById('filterPriority').value;
+  const params=new URLSearchParams();
+  if(q)params.append('q',q);
+  if(status)params.append('status',status);
+  if(priority)params.append('priority',priority);
+  fetchJSON('/api/tasks?'+params.toString())
+    .then(data=>{renderTasks(data.items);})
+    .catch(e=>{showMessage(document.getElementById('task-msg'), e.error||'Hata', false);});
+}
+function renderTasks(tasks){
+  const list=document.getElementById('taskList');
+  list.innerHTML='';
+  if(tasks.length===0){list.textContent='Görev yok.';return;}
+  tasks.forEach(t=>{
+    const div=document.createElement('div');
+    div.className='task';
+    const titleDiv=document.createElement('div');
+    titleDiv.textContent = t.title;
+    const descDiv=document.createElement('div');
+    descDiv.textContent = t.description;
+    const meta=document.createElement('div');
+    meta.innerHTML = `<em>(${t.status}/${t.priority})</em>`;
+    const actions=document.createElement('div');
+    actions.className='actions';
+    const editBtn=document.createElement('button');
+    editBtn.textContent='Düzenle';
+    editBtn.onclick=()=>{populateEdit(t);};
+    const delBtn=document.createElement('button');
+    delBtn.textContent='Sil';
+    delBtn.onclick=()=>{if(confirm('Silinsin mi?')) deleteTask(t.id);};
+    actions.appendChild(editBtn);
+    actions.appendChild(delBtn);
+    div.appendChild(titleDiv);
+    div.appendChild(meta);
+    div.appendChild(descDiv);
+    div.appendChild(actions);
+    list.appendChild(div);
+  });
+}
+function populateEdit(task){
+  editId=task.id;
+  document.getElementById('title').value=task.title;
+  document.getElementById('description').value=task.description;
+  document.getElementById('status').value=task.status;
+  document.getElementById('priority').value=task.priority;
+  document.getElementById('saveBtn').textContent='Güncelle';
+  document.getElementById('cancelEditBtn').style.display='inline';
+}
+function clearForm(){
+  editId=null;
+  document.getElementById('taskForm').reset();
+  document.getElementById('saveBtn').textContent='Kaydet';
+  document.getElementById('cancelEditBtn').style.display='none';
+}
+function submitTask(e){
+  e.preventDefault();
+  const payload={
+    title:document.getElementById('title').value.trim(),
+    description:document.getElementById('description').value,
+    status:document.getElementById('status').value,
+    priority:document.getElementById('priority').value
+  };
+  const opts={method: editId? 'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),credentials:'include'};
+  const url= editId? `/api/tasks/${editId}`:'/api/tasks';
+  fetchJSON(url, opts)
+    .then(()=>{showMessage(document.getElementById('task-msg'), 'Görev kaydedildi', true);clearForm();loadTasks();loadStats();})
+    .catch(e=>{showMessage(document.getElementById('task-msg'), e.error||'Hata', false);});
+}
+function deleteTask(id){
+  fetchJSON(`/api/tasks/${id}`,{method:'DELETE',credentials:'include'}).then(()=>{loadTasks();loadStats();});
+}
+function loadStats(){
+  fetchJSON('/api/stats').then(s=>{document.getElementById('stats').innerHTML=`Toplam: ${s.total} | Yapılacak: ${s.todo} | Sürüyor: ${s.doing} | Tamamlandı: ${s.done}`;});
+}
+document.getElementById('loginBtn').onclick=login;
+document.getElementById('logoutBtn').onclick=logout;
+document.getElementById('taskForm').onsubmit=submitTask;
+document.getElementById('cancelEditBtn').onclick=clearForm;
+document.getElementById('applyFilterBtn').onclick=loadTasks;
+loadUser();
+</script>
+</body>
+</html>

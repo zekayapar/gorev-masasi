@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Görev Masası</title>
+<style>
+:root{--bg:#f4f6fb;--card:#ffffff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent-ink:#ffffff;--danger:#dc2626;--ok:#16a34a;--warn:#d97706;}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.1rem}
+.userbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+button{font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 12px;border-radius:8px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+button.ghost{background:transparent}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;width:100%}
+label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:4px}
+.field{margin-bottom:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>*{flex:1 1 160px}
+.counters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.counter{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.counter .num{font-size:1.4rem;font-weight:700}
+.counter .lbl{font-size:.8rem;color:var(--muted)}
+.list{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}
+.item .meta{font-size:.85rem;color:var(--muted)}
+.item .title{font-weight:600}
+.item .desc{color:var(--muted);white-space:pre-wrap;word-break:break-word}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;border:1px solid var(--line)}
+.badge.todo{background:#eef2ff;color:#3730a3}
+.badge.doing{background:#fff7ed;color:#9a3412}
+.badge.done{background:#ecfdf5;color:#065f46}
+.badge.low{background:#f1f5f9;color:#334155}
+.badge.normal{background:#e0f2fe;color:#075985}
+.badge.high{background:#fee2e2;color:#991b1b}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.msg{padding:10px;border-radius:8px;margin-bottom:12px;display:none}
+.msg.ok{display:block;background:#ecfdf5;color:#065f46;border:1px solid #bbf7d0}
+.msg.err{display:block;background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+.login{max-width:420px;margin:40px auto}
+.demo{font-size:.85rem;color:var(--muted);margin-top:10px}
+.hidden{display:none}
+@media (max-width:520px){.counters{grid-template-columns:repeat(2,1fr)}.row>*{flex:1 1 100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section id="loginView" class="card login">
+    <h1>Görev Masası</h1>
+    <p class="demo">Demo hesaplar: <strong>zeka</strong> / <strong>deneme-zeka-2026</strong> ve <strong>yapar</strong> / <strong>deneme-yapar-2026</strong></p>
+    <form id="loginForm">
+      <div class="field"><label for="username">Kullanıcı adı</label><input id="username" name="username" autocomplete="username" required></div>
+      <div class="field"><label for="password">Parola</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+      <button class="primary" type="submit">Giriş yap</button>
+    </form>
+    <div id="loginMsg" class="msg"></div>
+  </section>
+
+  <section id="appView" class="hidden">
+    <div class="card topbar">
+      <div class="brand">Görev Masası</div>
+      <div class="userbox">
+        <span id="whoami"></span>
+        <button id="logoutBtn" class="ghost">Çıkış yap</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="counters">
+        <div class="counter"><div class="num" id="cTotal">0</div><div class="lbl">Toplam</div></div>
+        <div class="counter"><div class="num" id="cTodo">0</div><div class="lbl">Yapılacak</div></div>
+        <div class="counter"><div class="num" id="cDoing">0</div><div class="lbl">Sürüyor</div></div>
+        <div class="counter"><div class="num" id="cDone">0</div><div class="lbl">Tamamlandı</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <form id="taskForm">
+        <h2 id="formTitle">Yeni görev</h2>
+        <div class="field"><label for="title">Başlık</label><input id="title" name="title" maxlength="120" required></div>
+        <div class="field"><label for="description">Açıklama</label><textarea id="description" name="description" rows="3" maxlength="1000"></textarea></div>
+        <div class="row">
+          <div class="field"><label for="status">Durum</label><select id="status" name="status"><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div>
+          <div class="field"><label for="priority">Öncelik</label><select id="priority" name="priority"><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select></div>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit" id="saveBtn">Kaydet</button>
+          <button type="button" id="cancelBtn" class="hidden">Vazgeç</button>
+        </div>
+      </form>
+      <div id="taskMsg" class="msg"></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="margin-bottom:12px">
+        <div class="field"><label for="q">Ara</label><input id="q" placeholder="Başlık veya açıklama"></div>
+        <div class="field"><label for="fStatus">Durum filtresi</label><select id="fStatus"><option value="">Tümü</option><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div>
+        <div class="field"><label for="fPriority">Öncelik filtresi</label><select id="fPriority"><option value="">Tümü</option><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select></div>
+      </div>
+      <div class="actions" style="margin-bottom:12px"><button id="filterBtn">Filtrele</button></div>
+      <div id="taskMsg2" class="msg"></div>
+      <div id="taskList" class="list"></div>
+    </div>
+  </section>
+</div>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const state = { editingId: null, items: [], total: 0 };
+
+  function show(el, type, text){
+    el.className = 'msg ' + type;
+    el.textContent = text;
+  }
+  function hide(el){ el.className = 'msg'; el.textContent = ''; }
+
+  async function api(path, opts){
+    opts = opts || {};
+    const res = await fetch(path, opts);
+    let data = null;
+    try { data = await res.json(); } catch(e){ data = null; }
+    return { ok: res.ok, status: res.status, data: data };
+  }
+
+  function renderList(){
+    const list = $('taskList');
+    list.innerHTML = '';
+    if(!state.items.length){
+      const div = document.createElement('div');
+      div.className = 'empty';
+      div.textContent = 'Görev yok. Yukarıdan yeni bir görev ekleyin.';
+      list.appendChild(div);
+      return;
+    }
+    state.items.forEach(t => {
+      const item = document.createElement('div');
+      item.className = 'item';
+      const left = document.createElement('div');
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = t.title;
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = t.description || '';
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const sb = document.createElement('span');
+      sb.className = 'badge ' + t.status;
+      sb.textContent = ({todo:'Yapılacak',doing:'Sürüyor',done:'Tamamlandı'})[t.status] || t.status;
+      const pb = document.createElement('span');
+      pb.className = 'badge ' + t.priority;
+      pb.textContent = ({low:'Düşük',normal:'Normal',high:'Yüksek'})[t.priority] || t.priority;
+      meta.appendChild(sb); meta.appendChild(document.createTextNode(' ')); meta.appendChild(pb);
+      left.appendChild(title); left.appendChild(desc); left.appendChild(meta);
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      const edit = document.createElement('button');
+      edit.textContent = 'Düzenle';
+      edit.addEventListener('click', () => startEdit(t));
+      const del = document.createElement('button');
+      del.className = 'danger';
+      del.textContent = 'Sil';
+      del.addEventListener('click', () => removeTask(t.id));
+      actions.appendChild(edit); actions.appendChild(del);
+      item.appendChild(left); item.appendChild(actions);
+      list.appendChild(item);
+    });
+  }
+
+  async function loadTasks(){
+    const q = $('q').value.trim();
+    const status = $('fStatus').value;
+    const priority = $('fPriority').value;
+    const params = new URLSearchParams();
+    if(q) params.set('q', q);
+    if(status) params.set('status', status);
+    if(priority) params.set('priority', priority);
+    const qs = params.toString();
+    const r = await api('/api/tasks' + (qs ? '?' + qs : ''));
+    if(!r.ok){ show($('taskMsg2'), 'err', 'Görevler yüklenemedi.'); return; }
+    state.items = r.data.items || [];
+    state.total = r.data.total || 0;
+    hide($('taskMsg2'));
+    renderList();
+  }
+
+  async function loadStats(){
+    const r = await api('/api/stats');
+    if(!r.ok) return;
+    $('cTotal').textContent = r.data.total;
+    $('cTodo').textContent = r.data.todo;
+    $('cDoing').textContent = r.data.doing;
+    $('cDone').textContent = r.data.done;
+  }
+
+  function resetForm(){
+    state.editingId = null;
+    $('formTitle').textContent = 'Yeni görev';
+    $('title').value = '';
+    $('description').value = '';
+    $('status').value = 'todo';
+    $('priority').value = 'normal';
+    $('saveBtn').textContent = 'Kaydet';
+    $('cancelBtn').classList.add('hidden');
+  }
+
+  function startEdit(t){
+    state.editingId = t.id;
+    $('formTitle').textContent = 'Görevi düzenle';
+    $('title').value = t.title;
+    $('description').value = t.description || '';
+    $('status').value = t.status;
+    $('priority').value = t.priority;
+    $('saveBtn').textContent = 'Güncelle';
+    $('cancelBtn').classList.remove('hidden');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  async function saveTask(e){
+    e.preventDefault();
+    const body = {
+      title: $('title').value,
+      description: $('description').value,
+      status: $('status').value,
+      priority: $('priority').value
+    };
+    const opts = { method: state.editingId ? 'PUT' : 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) };
+    const path = state.editingId ? '/api/tasks/' + state.editingId : '/api/tasks';
+    const r = await api(path, opts);
+    if(r.ok){
+      show($('taskMsg'), 'ok', state.editingId ? 'Görev güncellendi.' : 'Görev eklendi.');
+      resetForm();
+      await Promise.all([loadTasks(), loadStats()]);
+    } else {
+      const msg = (r.data && r.data.error) ? 'Hata: ' + r.data.error : 'İşlem başarısız.';
+      show($('taskMsg'), 'err', msg);
+    }
+  }
+
+  async function removeTask(id){
+    if(!confirm('Bu görevi silmek istediğinize emin misiniz?')) return;
+    const r = await api('/api/tasks/' + id, { method: 'DELETE' });
+    if(r.ok){
+      show($('taskMsg2'), 'ok', 'Görev silindi.');
+      if(state.editingId === id) resetForm();
+      await Promise.all([loadTasks(), loadStats()]);
+    } else {
+      show($('taskMsg2'), 'err', 'Silme başarısız.');
+    }
+  }
+
+  async function doLogin(e){
+    e.preventDefault();
+    const body = { username: $('username').value, password: $('password').value };
+    const r = await api('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if(r.ok){
+      hide($('loginMsg'));
+      $('whoami').textContent = r.data.username;
+      $('loginView').classList.add('hidden');
+      $('appView').classList.remove('hidden');
+      resetForm();
+      await Promise.all([loadTasks(), loadStats()]);
+    } else {
+      show($('loginMsg'), 'err', 'Giriş başarısız.');
+    }
+  }
+
+  async function doLogout(){
+    const r = await api('/api/logout', { method:'POST' });
+    if(r.ok){
+      location.reload();
+    } else {
+      show($('loginMsg'), 'err', 'Çıkış yapılamadı.');
+    }
+  }
+
+  $('loginForm').addEventListener('submit', doLogin);
+  $('logoutBtn').addEventListener('click', doLogout);
+  $('taskForm').addEventListener('submit', saveTask);
+  $('cancelBtn').addEventListener('click', resetForm);
+  $('filterBtn').addEventListener('click', loadTasks);
+  $('q').addEventListener('input', loadTasks);
+  $('fStatus').addEventListener('change', loadTasks);
+  $('fPriority').addEventListener('change', loadTasks);
+
+  (async function init(){
+    const r = await api('/api/me');
+    if(r.ok){
+      $('whoami').textContent = r.data.username;
+      $('loginView').classList.add('hidden');
+      $('appView').classList.remove('hidden');
+      await Promise.all([loadTasks(), loadStats()]);
+    }
+  })();
+})();
+</script>
+</body>
+</html>

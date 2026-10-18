@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Görev Masası</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2563eb;--brand-ink:#fff;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--soft:#eef2ff;}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:18px}
+.userbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.userbox .name{font-weight:600}
+button{font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 12px;cursor:pointer}
+button.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+button.ghost{background:transparent}
+button.danger{background:var(--bad);border-color:var(--bad);color:#fff}
+button:disabled{opacity:.6;cursor:not-allowed}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:1px}
+textarea{min-height:70px;resize:vertical}
+.grid{display:grid;gap:12px}
+.counters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.counter{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.counter .num{font-size:22px;font-weight:700}
+.counter .lbl{font-size:12px;color:var(--muted)}
+.filters{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end}
+.row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)}
+.row .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.badge{font-size:12px;border-radius:999px;padding:3px 9px;border:1px solid var(--line);background:#fff}
+.badge.todo{background:#eef2ff;color:#3730a3;border-color:#c7d2fe}
+.badge.doing{background:#fef3c7;color:#92400e;border-color:#fde68a}
+.badge.done{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+.badge.low{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
+.badge.normal{background:#e0f2fe;color:#075985;border-color:#bae6fd}
+.badge.high{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+.title{font-weight:600}
+.desc{color:var(--muted);font-size:13px;white-space:pre-wrap;word-break:break-word}
+.actions{display:flex;gap:8px}
+.msg{margin:10px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);font-size:14px}
+.msg.ok{background:#dcfce7;border-color:#bbf7d0;color:#166534}
+.msg.err{background:#fee2e2;border-color:#fecaca;color:#991b1b}
+.hidden{display:none}
+.login{max-width:420px;margin:40px auto}
+.demo{margin-top:14px;font-size:13px;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+@media (max-width:520px){
+.counters{grid-template-columns:repeat(2,1fr)}
+.filters{grid-template-columns:1fr 1fr}
+.filters .btn-col{grid-column:1 / -1}
+.row{flex-direction:column;align-items:stretch}
+.actions{justify-content:flex-end}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section id="loginView" class="card login">
+    <div class="brand">Görev Masası</div>
+    <form id="loginForm">
+      <label for="loginUser">Kullanıcı adı</label>
+      <input id="loginUser" name="username" autocomplete="username" required>
+      <label for="loginPass">Parola</label>
+      <input id="loginPass" name="password" type="password" autocomplete="current-password" required>
+      <div class="msg hidden" id="loginMsg" role="alert"></div>
+      <button class="primary" type="submit" style="width:100%;margin-top:12px">Giriş yap</button>
+    </form>
+    <div class="demo">Demo hesaplar: <strong>zeka</strong> / deneme-zeka-2026 ve <strong>yapar</strong> / deneme-yapar-2026</div>
+  </section>
+
+  <section id="appView" class="hidden">
+    <div class="topbar">
+      <div class="brand">Görev Masası</div>
+      <div class="userbox">
+        <span class="name" id="userName"></span>
+        <button id="logoutBtn" type="button">Çıkış yap</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="counters">
+        <div class="counter"><div class="num" id="cTotal">0</div><div class="lbl">Toplam</div></div>
+        <div class="counter"><div class="num" id="cTodo">0</div><div class="lbl">Yapılacak</div></div>
+        <div class="counter"><div class="num" id="cDoing">0</div><div class="lbl">Sürüyor</div></div>
+        <div class="counter"><div class="num" id="cDone">0</div><div class="lbl">Tamamlandı</div></div>
+      </div>
+
+      <form id="taskForm">
+        <input type="hidden" id="taskId" value="">
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <div>
+            <label for="taskTitle">Başlık</label>
+            <input id="taskTitle" maxlength="120" required>
+          </div>
+          <div>
+            <label for="taskStatus">Durum</label>
+            <select id="taskStatus">
+              <option value="todo">Yapılacak</option>
+              <option value="doing">Sürüyor</option>
+              <option value="done">Tamamlandı</option>
+            </select>
+          </div>
+          <div>
+            <label for="taskPriority">Öncelik</label>
+            <select id="taskPriority">
+              <option value="low">Düşük</option>
+              <option value="normal">Normal</option>
+              <option value="high">Yüksek</option>
+            </select>
+          </div>
+          <div>
+            <label for="taskDesc">Açıklama</label>
+            <textarea id="taskDesc" maxlength="1000"></textarea>
+          </div>
+        </div>
+        <div class="msg hidden" id="taskMsg" role="alert"></div>
+        <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+          <button class="primary" type="submit" id="taskSubmit">Kaydet</button>
+          <button type="button" id="taskCancel" class="ghost hidden">Vazgeç</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="filters">
+        <div>
+          <label for="filterQ">Ara</label>
+          <input id="filterQ" placeholder="Başlık veya açıklama">
+        </div>
+        <div>
+          <label for="filterStatus">Durum filtresi</label>
+          <select id="filterStatus">
+            <option value="">Tümü</option>
+            <option value="todo">Yapılacak</option>
+            <option value="doing">Sürüyor</option>
+            <option value="done">Tamamlandı</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterPriority">Öncelik filtresi</label>
+          <select id="filterPriority">
+            <option value="">Tümü</option>
+            <option value="low">Düşük</option>
+            <option value="normal">Normal</option>
+            <option value="high">Yüksek</option>
+          </select>
+        </div>
+        <div class="btn-col">
+          <button type="button" id="filterBtn">Filtrele</button>
+        </div>
+      </div>
+      <div class="msg hidden" id="listMsg" role="alert"></div>
+      <div id="taskList"></div>
+    </div>
+  </section>
+</div>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const loginView = $('loginView');
+  const appView = $('appView');
+  const loginForm = $('loginForm');
+  const loginMsg = $('loginMsg');
+  const taskForm = $('taskForm');
+  const taskMsg = $('taskMsg');
+  const listMsg = $('listMsg');
+  const taskList = $('taskList');
+  const userName = $('userName');
+  const cTotal = $('cTotal');
+  const cTodo = $('cTodo');
+  const cDoing = $('cDoing');
+  const cDone = $('cDone');
+  const taskId = $('taskId');
+  const taskTitle = $('taskTitle');
+  const taskDesc = $('taskDesc');
+  const taskStatus = $('taskStatus');
+  const taskPriority = $('taskPriority');
+  const taskSubmit = $('taskSubmit');
+  const taskCancel = $('taskCancel');
+  const filterQ = $('filterQ');
+  const filterStatus = $('filterStatus');
+  const filterPriority = $('filterPriority');
+  const filterBtn = $('filterBtn');
+  const logoutBtn = $('logoutBtn');
+
+  function showMsg(el, text, kind){
+    el.textContent = text;
+    el.className = 'msg ' + kind;
+  }
+  function hideMsg(el){
+    el.textContent = '';
+    el.className = 'msg hidden';
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+  async function api(path, options){
+    options = options || {};
+    options.credentials = 'same-origin';
+    if (options.body && typeof options.body !== 'string'){
+      options.body = JSON.stringify(options.body);
+      options.headers = Object.assign({'Content-Type':'application/json'}, options.headers || {});
+    }
+    const res = await fetch(path, options);
+    let data = null;
+    try { data = await res.json(); } catch (e) { data = null; }
+    if (!res.ok){
+      const msg = (data && data.error) ? data.error : ('Hata ' + res.status);
+      throw new Error(msg);
+    }
+    return data;
+  }
+  function statusLabel(v){ return v==='todo'?'Yapılacak':(v==='doing'?'Sürüyor':'Tamamlandı'); }
+  function priorityLabel(v){ return v==='low'?'Düşük':(v==='normal'?'Normal':'Yüksek'); }
+
+  function renderTasks(items){
+    taskList.innerHTML = '';
+    if (!items.length){
+      const div = document.createElement('div');
+      div.className = 'empty';
+      div.textContent = 'Görev yok. Yukarıdan yeni bir görev ekleyin.';
+      taskList.appendChild(div);
+      return;
+    }
+    items.forEach((t) => {
+      const row = document.createElement('div');
+      row.className = 'row';
+      const left = document.createElement('div');
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = t.title;
+      left.appendChild(title);
+      if (t.description){
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = t.description;
+        left.appendChild(desc);
+      }
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const b1 = document.createElement('span');
+      b1.className = 'badge ' + t.status;
+      b1.textContent = statusLabel(t.status);
+      const b2 = document.createElement('span');
+      b2.className = 'badge ' + t.priority;
+      b2.textContent = priorityLabel(t.priority);
+      meta.appendChild(b1); meta.appendChild(b2);
+      left.appendChild(meta);
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      const edit = document.createElement('button');
+      edit.type = 'button';
+      edit.textContent = 'Düzenle';
+      edit.addEventListener('click', () => startEdit(t));
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'danger';
+      del.textContent = 'Sil';
+      del.addEventListener('click', () => removeTask(t));
+      actions.appendChild(edit); actions.appendChild(del);
+      row.appendChild(left); row.appendChild(actions);
+      taskList.appendChild(row);
+    });
+  }
+
+  async function loadStats(){
+    try {
+      const s = await api('/api/stats');
+      cTotal.textContent = s.total;
+      cTodo.textContent = s.todo;
+      cDoing.textContent = s.doing;
+      cDone.textContent = s.done;
+    } catch (e) {
+      showMsg(listMsg, 'İstatistik alınamadı: ' + e.message, 'err');
+    }
+  }
+
+  async function loadTasks(){
+    hideMsg(listMsg);
+    const params = new URLSearchParams();
+    if (filterQ.value.trim()) params.set('q', filterQ.value.trim());
+    if (filterStatus.value) params.set('status', filterStatus.value);
+    if (filterPriority.value) params.set('priority', filterPriority.value);
+    const qs = params.toString();
+    const url = '/api/tasks' + (qs ? ('?' + qs) : '');
+    try {
+      const data = await api(url);
+      renderTasks(data.items);
+    } catch (e) {
+      if (e.message.indexOf('Oturum') >= 0){
+        showLogin();
+        return;
+      }
+      showMsg(listMsg, 'Görevler yüklenemedi: ' + e.message, 'err');
+      renderTasks([]);
+    }
+  }
+
+  function resetTaskForm(){
+    taskId.value = '';
+    taskTitle.value = '';
+    taskDesc.value = '';
+    taskStatus.value = 'todo';
+    taskPriority.value = 'normal';
+    taskSubmit.textContent = 'Kaydet';
+    taskCancel.classList.add('hidden');
+    hideMsg(taskMsg);
+  }
+
+  function startEdit(t){
+    taskId.value = t.id;
+    taskTitle.value = t.title;
+    taskDesc.value = t.description || '';
+    taskStatus.value = t.status;
+    taskPriority.value = t.priority;
+    taskSubmit.textContent = 'Güncelle';
+    taskCancel.classList.remove('hidden');
+    hideMsg(taskMsg);
+    taskTitle.focus();
+  }
+
+  async function submitTask(e){
+    e.preventDefault();
+    const id = taskId.value;
+    const body = {
+      title: taskTitle.value.trim(),
+      description: taskDesc.value,
+      status: taskStatus.value,
+      priority: taskPriority.value
+    };
+    if (!body.title){
+      showMsg(taskMsg, 'Başlık boş olamaz', 'err');
+      return;
+    }
+    try {
+      if (id){
+        await api('/api/tasks/' + id, {method:'PUT', body});
+        showMsg(taskMsg, 'Görev güncellendi', 'ok');
+      } else {
+        await api('/api/tasks', {method:'POST', body});
+        showMsg(taskMsg, 'Görev eklendi', 'ok');
+      }
+      resetTaskForm();
+      await Promise.all([loadTasks(), loadStats()]);
+    } catch (err){
+      showMsg(taskMsg, 'İşlem başarısız: ' + err.message, 'err');
+    }
+  }
+
+  async function removeTask(t){
+    const ok = confirm('“' + t.title + '” görevini silmek istiyor musunuz?');
+    if (!ok) return;
+    try {
+      await api('/api/tasks/' + t.id, {method:'DELETE'});
+      showMsg(listMsg, 'Görev silindi', 'ok');
+      await Promise.all([loadTasks(), loadStats()]);
+    } catch (err){
+      showMsg(listMsg, 'Silinemedi: ' + err.message, 'err');
+    }
+  }
+
+  function showLogin(){
+    appView.classList.add('hidden');
+    loginView.classList.remove('hidden');
+  }
+  function showApp(username){
+    loginView.classList.add('hidden');
+    appView.classList.remove('hidden');
+    userName.textContent = username;
+  }
+
+  async function doLogin(e){
+    e.preventDefault();
+    hideMsg(loginMsg);
+    const username = $('loginUser').value.trim();
+    const password = $('loginPass').value;
+    if (!username || !password){
+      showMsg(loginMsg, 'Kullanıcı adı ve parola gerekli', 'err');
+      return;
+    }
+    try {
+      const data = await api('/api/login', {method:'POST', body:{username, password}});
+      showApp(data.username);
+      await Promise.all([loadTasks(), loadStats()]);
+    } catch (err){
+      showMsg(loginMsg, 'Giriş yapılamadı: ' + err.message, 'err');
+    }
+  }
+
+  async function doLogout(){
+    try {
+      await api('/api/logout', {method:'POST'});
+    } catch (e) {}
+    resetTaskForm();
+    showLogin();
+  }
+
+  loginForm.addEventListener('submit', doLogin);
+  logoutBtn.addEventListener('click', doLogout);
+  taskForm.addEventListener('submit', submitTask);
+  taskCancel.addEventListener('click', resetTaskForm);
+  filterBtn.addEventListener('click', loadTasks);
+  filterQ.addEventListener('input', loadTasks);
+  filterStatus.addEventListener('change', loadTasks);
+  filterPriority.addEventListener('change', loadTasks);
+
+  (async function init(){
+    try {
+      const me = await api('/api/me');
+      showApp(me.username);
+      await Promise.all([loadTasks(), loadStats()]);
+    } catch (e) {
+      showLogin();
+    }
+  })();
+})();
+</script>
+</body>
+</html>

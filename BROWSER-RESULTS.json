@@ -1,0 +1,1126 @@
+{
+  "qwen27tp2-1800": {
+    "arm": "qwen27tp2",
+    "seed": 1800,
+    "url": "http://127.0.0.1:18153/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "executed": true,
+        "error": "Wrong and correct credentials both show Giriş başarısız; external HTTP confirms500."
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm control unmeasured uniformly."
+      }
+    ],
+    "login_viewport": {
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  "qwen27tp2-1801": {
+    "arm": "qwen27tp2",
+    "seed": 1801,
+    "url": "http://127.0.0.1:18154/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "executed": true,
+        "error": "Correct demo login cannot complete; external login check fails.",
+        "observed": "- generic: Görev Masası\n- generic: Kullanıcı adı\n- textbox \"Kullanıcı adı\": <redacted>\n- generic: Parola\n- textbox \"Parola\": <redacted>\n- button \"Giriş yap\" [active]\n- text: \"Demo hesaplar:\"\n- strong: zeka\n- text: / deneme-zeka-2026 ve\n- strong: yapar\n- text: / deneme-yapar-2026"
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Authenticated workflow unreachable; not an independently observed defect."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirmation transport unmeasured uniformly."
+      }
+    ],
+    "login_viewport": {
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  "qwen27tp2-1802": {
+    "arm": "qwen27tp2",
+    "seed": 1802,
+    "url": "http://127.0.0.1:18155/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "wrong-password error and correct login"
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "error": "Error: Error: Playwright selector deadline exceeded\nlocator.waitFor(visible) timed out for selector internal:text=\"UI görev 1802\"s\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"waitFor\",\"locator\":\"internal:text=\\\"UI görev 1802\\\"s\",\"matchCount\":0,\"matches\":[],\"visibleCount\":0,\"truncated\":false}"
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      }
+    ]
+  },
+  "gptoss120-1800": {
+    "arm": "gptoss120",
+    "seed": 1800,
+    "url": "http://127.0.0.1:18156/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "Wrong-password error observed after waiting for response; correct login works. Initial snapshot raced network."
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "error": "Error: Error: Timed out after 3000ms waiting for selector internal:text=\"UI görev 1800\"s: Browser Use encountered an error interacting with this webpage: Error: Element is not attached\n    at <anonymous>:227:263\n    at <anonymous>:227:479\n    at <anonymous>:228:11\n    at <anonymous>:229:11\nlocator.waitFor(visible) timed out for selector internal:text=\"UI görev 1800\"s\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"waitFor\",\"locator\":\"internal:text=\\\"UI görev 1800\\\"s\",\"matchCount\":0,\"matches\""
+      },
+      {
+        "name": "edit",
+        "pass": true,
+        "executed": true,
+        "detail": "works after explicit re-login workaround for reload defect"
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "executed": true,
+        "detail": "no-match and matching state filter work"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": true,
+        "executed": true,
+        "detail": "cancel kept saved row"
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": true,
+        "error": "Error: Stored user HTML injected; harmless handler marker=[{\"html\":\"<img src=\\\"x\\\" onerror=\\\"this.dataset.probe=36\\\" data-probe=\\\"36\\\">\",\"marker\":\"36\"}]"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "executed": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "executed": true,
+        "detail": "logout and second user own list"
+      }
+    ],
+    "operator_relogin_after_reload_failure": true,
+    "xss_dom_evidence": [
+      {
+        "html": "<img src=\"x\" onerror=\"this.dataset.probe=36\" data-probe=\"36\">",
+        "marker": "36"
+      }
+    ]
+  },
+  "gptoss120-1801": {
+    "arm": "gptoss120",
+    "seed": 1801,
+    "url": "http://127.0.0.1:18157/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "wrong-password error and correct login"
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": true,
+        "detail": "reload retains login/task"
+      },
+      {
+        "name": "edit",
+        "pass": true,
+        "executed": true,
+        "detail": "visible Güncelle action works"
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "executed": true,
+        "detail": "visible search/filter controls work; labels differ"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": true,
+        "detail": "cancel preserved saved row"
+      },
+      {
+        "name": "xss_text",
+        "pass": true,
+        "detail": "same inert marker rendered as literal text"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "detail": "logout and isolated second account"
+      }
+    ],
+    "selector_adjustments": [
+      "Editing uses visible Güncelle button; search uses visible Ara placeholder; filter selects identified from DOM because associated labels absent. No product code changed."
+    ],
+    "withdrawn_controller_failures": [
+      {
+        "name": "edit",
+        "pass": false,
+        "error": "Error: Error: Playwright selector deadline exceeded\nwaiting on click for selector internal:role=button[name=\"Kaydet\"s]\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"click\",\"locator\":\"internal:role=button[name=\\\"Kaydet\\\"s]\",\"matchCount\":0,\"matches\":[],\"visibleCount\":0,\"truncated\":false}"
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "error": "Error: Error: Playwright selector deadline exceeded\nlocator.fill failed for selector internal:label=\"Ara\"s\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"fill\",\"locator\":\"internal:label=\\\"Ara\\\"s\",\"matchCount\":0,\"matches\":[],\"visibleCount\":0,\"truncated\":false}"
+      }
+    ]
+  },
+  "gptoss120-1802": {
+    "arm": "gptoss120",
+    "seed": 1802,
+    "url": "http://127.0.0.1:18158/",
+    "root_html": false,
+    "root_error": "Visible HTTP500 Unable to read index.html",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_500",
+        "detail": "Server health is up, but application HTML cannot be read."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirmation transport unmeasured uniformly."
+      }
+    ]
+  },
+  "codex-1800": {
+    "arm": "codex",
+    "seed": 1800,
+    "url": "http://127.0.0.1:18150/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "wrong-password error and correct login"
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": true,
+        "detail": "reload retains login/task"
+      },
+      {
+        "name": "edit",
+        "pass": true,
+        "detail": "title/status updated"
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "detail": "no-match then matching state filter"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": true,
+        "detail": "cancel preserved saved row"
+      },
+      {
+        "name": "xss_text",
+        "pass": true,
+        "detail": "same inert marker rendered as literal text"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        },
+        "previous_override_result": {
+          "scroll": 375,
+          "width": 390
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "detail": "logout and isolated second account"
+      }
+    ]
+  },
+  "codernext80-1800": {
+    "arm": "codernext80",
+    "seed": 1800,
+    "url": "http://127.0.0.1:18159/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "error": "Error: Error: Playwright selector deadline exceeded\nlocator.waitFor(visible) timed out for selector internal:role=button[name=\"Çıkış yap\"s]\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"waitFor\",\"locator\":\"internal:role=button[name=\\\"Çıkış yap\\\"s]\",\"matchCount\":0,\"matches\":[],\"visibleCount\":0,\"truncated\":false}"
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "login",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      }
+    ],
+    "login_viewport": {
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  "codernext80-1801": {
+    "arm": "codernext80",
+    "seed": 1801,
+    "url": "http://127.0.0.1:18160/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "error": "Error: wrong-password feedback absent"
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": true,
+        "detail": "reload retains login/task"
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": true,
+        "error": "Error: Düzenle returned Not found; original UI görev 1801 remains and earlier save created a second task rather than editing."
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "executed": true,
+        "detail": "search and status via visible textbox/unlabelled filter"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "edit",
+        "detail": "Cannot enter edit state because the observed Edit request returns Not found; cancellation not independently tested."
+      },
+      {
+        "name": "xss_text",
+        "pass": true,
+        "detail": "same inert marker rendered as literal text"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "detail": "logout and isolated second account"
+      }
+    ],
+    "review_notes": [
+      "No wrong-password feedback after completed request; normal correct login reaches dashboard.",
+      "Initial edit selector sequence produced a new task; withdrawn edit pass. Original task remains and explicit edit click returns Not found.",
+      "Search textbox targeted by role and visible name; unlabelled status selector by observed filter-status.",
+      "No product files changed."
+    ]
+  },
+  "codex-1801": {
+    "arm": "codex",
+    "seed": 1801,
+    "url": "http://127.0.0.1:18151/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "wrong-password error and correct login"
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": true,
+        "detail": "reload retains login/task"
+      },
+      {
+        "name": "edit",
+        "pass": true,
+        "detail": "title/status updated"
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "detail": "no-match then matching state filter"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": true,
+        "detail": "cancel preserved saved row"
+      },
+      {
+        "name": "xss_text",
+        "pass": true,
+        "detail": "same inert marker rendered as literal text"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        },
+        "previous_override_result": {
+          "scroll": 375,
+          "width": 390
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "detail": "logout and isolated second account"
+      }
+    ]
+  },
+  "codex-1802": {
+    "arm": "codex",
+    "seed": 1802,
+    "url": "http://127.0.0.1:18152/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": true,
+        "detail": "wrong-password error and correct login"
+      },
+      {
+        "name": "create",
+        "pass": true,
+        "detail": "four fields saved"
+      },
+      {
+        "name": "persistence",
+        "pass": true,
+        "detail": "reload retains login/task"
+      },
+      {
+        "name": "edit",
+        "pass": true,
+        "detail": "title/status updated"
+      },
+      {
+        "name": "search_filter",
+        "pass": true,
+        "detail": "no-match then matching state filter"
+      },
+      {
+        "name": "cancel_edit",
+        "pass": true,
+        "detail": "cancel preserved saved row"
+      },
+      {
+        "name": "xss_text",
+        "pass": true,
+        "detail": "same inert marker rendered as literal text"
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        },
+        "previous_override_result": {
+          "scroll": 375,
+          "width": 390
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": true,
+        "detail": "logout and isolated second account"
+      }
+    ]
+  },
+  "codernext80-1802": {
+    "arm": "codernext80",
+    "seed": 1802,
+    "url": "http://127.0.0.1:18161/",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "detail": "wrong-password error and correct login",
+        "apparent_dashboard_before_review": true,
+        "error": "Correct login visually opened dashboard but did not establish a session: protected create Unauthorized. Final source sends Set-Cookie only after send_json has already ended headers and written body; login_cookie acceptance check also failed."
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "error": "Error: Error: Playwright selector deadline exceeded\nlocator.waitFor(visible) timed out for selector internal:text=\"UI görev 1802\"s\nLocator diagnostics: {\"kind\":\"no_matches\",\"action\":\"waitFor\",\"locator\":\"internal:text=\\\"UI görev 1802\\\"s\",\"matchCount\":0,\"matches\":[],\"visibleCount\":0,\"truncated\":false}"
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": true,
+        "detail": {
+          "height": 844,
+          "scroll": 375,
+          "width": 390,
+          "method": "fresh selected tab; actual 390x844 CSS viewport; separate state/paint and capture calls"
+        }
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm transport unmeasured uniformly; HTTP delete measured separately."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "create",
+        "detail": "Dependent workflow unavailable; not an independently observed defect."
+      }
+    ]
+  },
+  "devstral24-1800": {
+    "arm": "devstral24",
+    "seed": 1800,
+    "at": 1792287787.3438373,
+    "not_applicable": true,
+    "startup_error": "unterminated string literal (detected at line 16) (<unknown>, line 16)",
+    "checks": [
+      {
+        "name": "login",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "create",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "persistence",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "edit",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "search_filter",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "xss_text",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "responsive",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": null,
+        "executed": false,
+        "not_applicable": "Final delivery failed format/startup gate; browser application unavailable."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm uniformly unmeasured; HTTP delete is separate."
+      }
+    ]
+  },
+  "devstral24-1801": {
+    "arm": "devstral24",
+    "seed": 1801,
+    "url": "http://127.0.0.1:18163/",
+    "root_html": false,
+    "backend_observed": "HTTP404 application/json Not Found; opens index.html relative to CWD, contrary to common beside-app.py contract",
+    "browser_transport": "Navigation reported blocked by client; independent localhost read and source confirm root HTML unavailable. Not counted as nine independent UI defects.",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_404",
+        "detail": "Common launch could not serve index.html; dependent UI flow unavailable."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm uniformly unmeasured; HTTP delete separate."
+      }
+    ]
+  },
+  "devstral24-1802": {
+    "arm": "devstral24",
+    "seed": 1802,
+    "url": "http://127.0.0.1:18164/",
+    "root_html": false,
+    "backend_observed": "Root GET disconnects; final source opens relative index.html and raises FileNotFoundError under the shared data-CWD launch.",
+    "browser_observed": "ERR_EMPTY_RESPONSE; no application UI available.",
+    "checks": [
+      {
+        "name": "login",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "create",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "persistence",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "search_filter",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "cancel_edit",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "xss_text",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "responsive",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "user_isolation_logout",
+        "pass": false,
+        "executed": false,
+        "blocked_by": "root_html_disconnected",
+        "detail": "Dependent workflow unavailable; not independently observed defect."
+      },
+      {
+        "name": "delete_confirmation",
+        "pass": null,
+        "executed": false,
+        "detail": "Native confirm uniformly unmeasured; HTTP delete separate."
+      }
+    ]
+  }
+}

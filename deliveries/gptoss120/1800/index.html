@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Görev Masası</title>
+<style>
+body {font-family: Arial, sans-serif; margin:0; padding:0; display:flex; flex-direction:column; min-height:100vh;}
+.container {max-width: 800px; margin:auto; padding:1rem;}
+header {background:#4CAF50; color:white; padding:1rem; text-align:center;}
+form {margin-bottom:1rem;}
+label {display:block; margin-top:0.5rem;}
+input, textarea, select {width:100%; padding:0.5rem; margin-top:0.2rem;}
+button {margin-top:0.5rem; padding:0.5rem 1rem;}
+.task {border:1px solid #ddd; padding:0.5rem; margin-bottom:0.5rem;}
+.task-header {display:flex; justify-content:space-between; align-items:center;}
+.task-actions button {margin-left:0.3rem;}
+@media (max-width:390px){
+  .container {padding:0.5rem;}
+}
+</style>
+</head>
+<body>
+<header><h1>Görev Masası</h1></header>
+<div class="container" id="app"></div>
+<script>
+const apiBase = '';
+function setHTML(id, html){document.getElementById(id).innerHTML = html;}
+function showLogin(){
+  const html = `
+    <h2>Giriş</h2>
+    <form id="loginForm">
+      <label>Kullanıcı adı<br><input type="text" name="username" required></label>
+      <label>Parola<br><input type="password" name="password" required></label>
+      <button type="submit">Giriş yap</button>
+    </form>
+    <p>Demo hesaplar:</p>
+    <ul>
+      <li>zeka / deneme-zeka-2026</li>
+      <li>yapar / deneme-yapar-2026</li>
+    </ul>
+    <div id="loginMsg"></div>
+  `;
+  setHTML('app', html);
+  document.getElementById('loginForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const payload = {username:fd.get('username'), password:fd.get('password')};
+    const res = await fetch(`${apiBase}/api/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data = await res.json();
+    if(res.ok){loadApp();} else {setHTML('loginMsg', `<p style="color:red;">${data.error}</p>`);}
+  });
+}
+
+async function loadApp(){
+  const meRes = await fetch(`${apiBase}/api/me`);
+  if(!meRes.ok){showLogin();return;}
+  const me = await meRes.json();
+  const username = me.username;
+  const html = `
+    <div>Hoşgeldiniz, <strong>${username}</strong> <button id="logoutBtn">Çıkış yap</button></div>
+    <h3>İstatistikler</h3>
+    <div id="stats"></div>
+    <h3>Görev Filtreleri</h3>
+    <form id="filterForm">
+      <label>Ara<br><input type="text" name="q"></label>
+      <label>Durum filtresi<br><select name="status"><option value="">(Hepsi)</option><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></label>
+      <label>Öncelik filtresi<br><select name="priority"><option value="">(Hepsi)</option><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select></label>
+      <button type="submit">Filtrele</button>
+    </form>
+    <h3>Yeni Görev</h3>
+    <form id="taskForm">
+      <label>Başlık<br><input type="text" name="title" required></label>
+      <label>Açıklama<br><textarea name="description"></textarea></label>
+      <label>Durum<br><select name="status"><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></label>
+      <label>Öncelik<br><select name="priority"><option value="low">Düşük</option><option value="normal" selected>Normal</option><option value="high">Yüksek</option></select></label>
+      <button type="submit">Kaydet</button>
+      <button type="button" id="cancelEdit" style="display:none;">Vazgeç</button>
+    </form>
+    <div id="msg"></div>
+    <h3>Görevler</h3>
+    <div id="taskList"></div>
+  `;
+  setHTML('app', html);
+  document.getElementById('logoutBtn').addEventListener('click', async()=>{await fetch(`${apiBase}/api/logout`,{method:'POST'});showLogin();});
+  document.getElementById('filterForm').addEventListener('submit', e=>{e.preventDefault();loadTasks();});
+  document.getElementById('taskForm').addEventListener('submit', submitTask);
+  document.getElementById('cancelEdit').addEventListener('click',()=>{resetForm();});
+  await loadStats();
+  await loadTasks();
+}
+
+async function loadStats(){
+  const res = await fetch(`${apiBase}/api/stats`);
+  if(!res.ok){return;}
+  const s = await res.json();
+  setHTML('stats', `<ul><li>Toplam: ${s.total}</li><li>Yapılacak: ${s.todo}</li><li>Sürüyor: ${s.doing}</li><li>Tamamlandı: ${s.done}</li></ul>`);
+}
+
+let editId = null;
+function resetForm(){
+  editId = null;
+  document.getElementById('taskForm').reset();
+  document.getElementById('cancelEdit').style.display='none';
+  document.getElementById('msg').innerHTML='';
+}
+
+async function submitTask(e){
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const payload = {
+    title: fd.get('title'),
+    description: fd.get('description'),
+    status: fd.get('status'),
+    priority: fd.get('priority')
+  };
+  let url = `${apiBase}/api/tasks`;
+  let method = 'POST';
+  if(editId){url+=`/${editId}`; method='PUT';}
+  const res = await fetch(url,{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const data = await res.json();
+  if(res.ok){resetForm(); await loadTasks(); await loadStats(); setHTML('msg', `<p style="color:green;">Görev ${editId? 'güncellendi':'eklendi'}</p>`);} else {setHTML('msg', `<p style="color:red;">${data.error}</p>`);}
+}
+
+async function loadTasks(){
+  const form = document.getElementById('filterForm');
+  const fd = new FormData(form);
+  const params = new URLSearchParams();
+  for(const [k,v] of fd.entries()) if(v) params.append(k,v);
+  const res = await fetch(`${apiBase}/api/tasks?${params.toString()}`);
+  if(!res.ok){return;}
+  const data = await res.json();
+  const listDiv = document.getElementById('taskList');
+  if(data.total===0){listDiv.innerHTML='<p>Görev yok.</p>';return;}
+  let html='';
+  data.items.forEach(t=>{
+    html+=`<div class="task"><div class="task-header"><strong>${t.title}</strong><div class="task-actions"><button onclick="editTask(${t.id})">Düzenle</button><button onclick="deleteTask(${t.id})">Sil</button></div></div>`;
+    html+=`<p>${t.description||''}</p>`;
+    html+=`<p>Durum: ${statusLabel(t.status)} | Öncelik: ${priorityLabel(t.priority)}</p>`;
+    html+='</div>';
+  });
+  listDiv.innerHTML=html;
+}
+
+function statusLabel(v){return {'todo':'Yapılacak','doing':'Sürüyor','done':'Tamamlandı'}[v]||v;}
+function priorityLabel(v){return {'low':'Düşük','normal':'Normal','high':'Yüksek'}[v]||v;}
+
+async function editTask(id){
+  const res = await fetch(`${apiBase}/api/tasks/${id}`);
+  if(!res.ok){return;}
+  const t = await res.json();
+  editId = id;
+  const form = document.getElementById('taskForm');
+  form.title.value = t.title;
+  form.description.value = t.description;
+  form.status.value = t.status;
+  form.priority.value = t.priority;
+  document.getElementById('cancelEdit').style.display='inline';
+}
+
+async function deleteTask(id){
+  if(!confirm('Bu görevi silmek istediğinize emin misiniz?')) return;
+  const res = await fetch(`${apiBase}/api/tasks/${id}`,{method:'DELETE'});
+  const data = await res.json();
+  if(res.ok){await loadTasks(); await loadStats();} else {alert(data.error);}
+}
+
+// Initial load
+showLogin();
+</script>
+</body>
+</html>

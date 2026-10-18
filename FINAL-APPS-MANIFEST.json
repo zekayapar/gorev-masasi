@@ -1,0 +1,242 @@
+[
+  {
+    "arm": "codex",
+    "label": "Codex · GPT-6.1 Sol/medium",
+    "seed": 1800,
+    "attempt": 0,
+    "passed": 40,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "c5e835ebb2f750402223df96dba3edc058d4315507c937273846afddf4ed1991",
+      "index.html": "b1d990bcbcbe16e6ca8fd98d812276b4e989bced4146d9a394cd0cfcbe1a6dcb",
+      "README.md": "cf0598f362dd1692bccb325dc42add73976cd58d4a8530e6c42dd497a1973683"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "codex",
+    "label": "Codex · GPT-6.1 Sol/medium",
+    "seed": 1801,
+    "attempt": 0,
+    "passed": 40,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "7aa312dbe4e23d8f2560189333980895c873bef35da0ba8d02ea60e8b74e0f86",
+      "index.html": "caf6e5467536eed2943f845dcea6ad4f1c0b3033c96106be31335ed76f3ba8d8",
+      "README.md": "ac810426539a0f407562b5a02055deacff70fd3e802f4962265b3ad11d7595f2"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "codex",
+    "label": "Codex · GPT-6.1 Sol/medium",
+    "seed": 1802,
+    "attempt": 0,
+    "passed": 40,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "c3cb965803f873c917242f554914f91da00fc2d8c73926d7cbbda6f201b9da87",
+      "index.html": "3902fe113ab4e0b249b7d1f63cb6e109e5ced53bc3d30d211981a99144db96ea",
+      "README.md": "5e4921720277c127b960fe3ed135e0549d9131aa35ef439d9114e16c0b307568"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "qwen27tp2",
+    "label": "Qwen3.8-27B · NVFP4/TP2/MTP3",
+    "seed": 1800,
+    "attempt": 2,
+    "passed": 9,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "99705fdcb4a9662032606525191999590ef6541807c00572262c605e4c65e8c8",
+      "index.html": "7380107244921e3b6e435246de7ae09313169d41fb6a21c12ab8afb7adb850b4",
+      "README.md": "6861b3afa335b6d997d98394d83831e9b72886f324bdd4a9ec22d1cfb5340ddb"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "qwen27tp2",
+    "label": "Qwen3.8-27B · NVFP4/TP2/MTP3",
+    "seed": 1801,
+    "attempt": 2,
+    "passed": 9,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "be6e27390342264a05e02bbdaa47ee682344b0560d020027404cecd1f3171187",
+      "index.html": "853b1c02a0d4042ab3b01c3f1219712d0c75ad9d7dcc60647062c6114208a223",
+      "README.md": "e11ed119e4d8132381f5afdbf0ace1eb51f6d85815cef7d6f02e26f72040bb27"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "qwen27tp2",
+    "label": "Qwen3.8-27B · NVFP4/TP2/MTP3",
+    "seed": 1802,
+    "attempt": 2,
+    "passed": 18,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "1be2094a3bc86f9145eea703cc604ccef0bccba8ad33131167d83496bb9eb6ae",
+      "index.html": "b990c9da8facd2ed5b709266ff846c7158a231d0d8a009caff6555715cc26132",
+      "README.md": "cad24639f7bf3d08c6329050b9a3f9400955fcf330a5008ea72117b9a0405eb7"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "devstral24",
+    "label": "Devstral Small 2 · FP8/TP1",
+    "seed": 1800,
+    "attempt": 2,
+    "passed": 0,
+    "total": 40,
+    "startup_pass": false,
+    "files": {
+      "app.py": "b829f5121164b07ab4db1bbb62535a73e32cbe1a105985e783cb5a1a89ad5c9f",
+      "index.html": "a2d44424377b1c4ec62efb68045c48d49c968e3c007f361b69f49c7df0a6ee6f",
+      "README.md": "1fde24834c163745ab626a04d0bb427dba08c21a41247b679d96a91b2f0a5f43"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": "unterminated string literal (detected at line 16) (<unknown>, line 16)"
+  },
+  {
+    "arm": "devstral24",
+    "label": "Devstral Small 2 · FP8/TP1",
+    "seed": 1801,
+    "attempt": 2,
+    "passed": 31,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "52b6cbb21e484496146ac060f8a5aee9674d021fc535ac2607f47240376169b1",
+      "index.html": "9869fe0e225a49432d0c324329b35eb06ca52e4f5184f432f9725c6f29d31979",
+      "README.md": "3fdf61f5ce672bb318ecc7325f45f87fbca6de766667dcd54428c7ca018bb7b2"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "devstral24",
+    "label": "Devstral Small 2 · FP8/TP1",
+    "seed": 1802,
+    "attempt": 2,
+    "passed": 25,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "970fbe262e87d102e99511d15982ffe958ef3fd7543a4af6f32d1c4ba87baf0d",
+      "index.html": "fa9104b2d86a07b593ee288bd637841478aa3839573f3fb93d2de9ee3876e89d",
+      "README.md": "414ad5aabcf85f073fb220a3eac6ae31c72bc4ff8f41690de93339535dc78eda"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "gptoss120",
+    "label": "GPT-OSS-120B · MXFP4/PP3",
+    "seed": 1800,
+    "attempt": 2,
+    "passed": 40,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "6ac40257f01a07348d411bd5d8515970ba22fd182c9ecd16e452c5b9bd46f3df",
+      "index.html": "ca31fa51e22d43fed4f55ab0e19061a121eda8c499f850c69715943f304df0b8",
+      "README.md": "12b49626d6c63b68590fd9205fd8d72353c1718fb77a7a5c2649008fd57cc9ce"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "gptoss120",
+    "label": "GPT-OSS-120B · MXFP4/PP3",
+    "seed": 1801,
+    "attempt": 2,
+    "passed": 40,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "ce6bbe83ee2ced73346b48e5d8480672d779d72d70f63b3d15dac6e72d63bc73",
+      "index.html": "f26f25e593ae62b514ff16487380d5326bc393e5bef80d2162c98dacbe1149f4",
+      "README.md": "5d36c56f984f5c69efdf5909f78bb8273e5e5546635684023502e00c5b1cbb65"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "gptoss120",
+    "label": "GPT-OSS-120B · MXFP4/PP3",
+    "seed": 1802,
+    "attempt": 2,
+    "passed": 8,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "4a25ca96da85e9faffa7e121a0225e67add0318738e5adae2186e39a7c8ea580",
+      "index.html": "239d8cb65855ce14bf29bbe8e1df23f2f41a681726250bd98c038b16e54b6a06",
+      "README.md": "29e9cd9c55545c4b7670a71d1260c802d2e52f19bb672252270822ff9b7ff63e"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "codernext80",
+    "label": "Qwen3-Coder-Next · FP8/PP3",
+    "seed": 1800,
+    "attempt": 2,
+    "passed": 35,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "a80e9bf0127ff0ec8147a434314b1ad98a2074ec1319583408cd70086d7453fd",
+      "index.html": "bbb50811c40e0d71d9027e047e5d9c62f90a6bb379e98d73ae4e1ea0b8eb26f2",
+      "README.md": "4aff47afb28442482ac8e72b90d22e60c06cfc2573a6989509ae55371dc9a1c9"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "codernext80",
+    "label": "Qwen3-Coder-Next · FP8/PP3",
+    "seed": 1801,
+    "attempt": 2,
+    "passed": 24,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "afc554e2f22a2a26553292d9dd5eb6704cdd4908d39d0ddc73e63f5fd6b94bfe",
+      "index.html": "44f0d8cc5383b9d18a8c01465cfb7ff0d7f516d5098d659fadfd447fed591334",
+      "README.md": "46ad4a0891abe5ad919d4e1a7cee90e1c288ce9b01aaa31ab8110290764734f1"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  },
+  {
+    "arm": "codernext80",
+    "label": "Qwen3-Coder-Next · FP8/PP3",
+    "seed": 1802,
+    "attempt": 2,
+    "passed": 9,
+    "total": 40,
+    "startup_pass": true,
+    "files": {
+      "app.py": "0126087bb4668dbb13780aab75a17833e57b4ab12040f02436d426e73ed9a525",
+      "index.html": "aa545bcf94d454910b10e02c2d2d7364ef138543d521eea344dfbd7ce2975f4d",
+      "README.md": "8cf637b3077071d180efc09116f94d0ae01a013e7ba7d0ac9ffa9e0d1faf8d51"
+    },
+    "valid_three_file_json": true,
+    "evaluation_error": null
+  }
+]

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Masası</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="text"], input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        
+        .success {
+            color: green;
+            margin-top: 10px;
+        }
+        
+        .app-container {
+            display: none;
+        }
+        
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .task-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .task-form .form-group {
+            margin-bottom: 10px;
+        }
+        
+        select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .task-list {
+            margin-top: 20px;
+        }
+        
+        .task-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-info {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .task-meta {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-secondary {
+            background-color: #2196F3;
+        }
+        
+        .btn-danger {
+            background-color: #f44336;
+        }
+        
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 390px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .login-form {
+                margin: 0;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .task-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Görev Masası</h1>
+        
+        <div class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="username">Kullanıcı adı</label>
+                <input type="text" id="username" placeholder="Örnek: zeka veya yapar">
+            </div>
+            <div class="form-group">
+                <label for="password">Parola</label>
+                <input type="password" id="password" placeholder="Şifre">
+            </div>
+            <button onclick="login()">Giriş yap</button>
+            <div id="loginError" class="error"></div>
+            <div id="loginSuccess" class="success"></div>
+            <p style="margin-top: 15px; font-size: 14px;">
+                Demo hesapları: zeka/deneme-zeka-2026 ve yapar/deneme-yapar-2026
+            </p>
+        </div>
+        
+        <div class="app-container" id="appContainer">
+            <div class="user-info">
+                <span id="usernameDisplay"></span>
+                <button onclick="logout()" class="btn-secondary">Çıkış yap</button>
+            </div>
+            
+            <div class="stats" id="stats">
+                <div class="stat-item">
+                    <div>Toplam</div>
+                    <div class="stat-value" id="totalCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Yapılacak</div>
+                    <div class="stat-value" id="todoCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Sürüyor</div>
+                    <div class="stat-value" id="doingCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Tamamlandı</div>
+                    <div class="stat-value" id="doneCount">0</div>
+                </div>
+            </div>
+            
+            <div class="task-form" id="taskForm">
+                <h2>Yeni Görev</h2>
+                <div class="form-group">
+                    <label for="taskTitle">Başlık</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Açıklama</label>
+                    <textarea id="taskDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="taskStatus">Durum</label>
+                    <select id="taskStatus">
+                        <option value="todo">Yapılacak</option>
+                        <option value="doing">Sürüyor</option>
+                        <option value="done">Tamamlandı</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskPriority">Öncelik</label>
+                    <select id="taskPriority">
+                        <option value="low">Düşük</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="high">Yüksek</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button onclick="saveTask()">Kaydet</button>
+                    <button onclick="cancelEdit()" style="background-color: #f44336;">Vazgeç</button>
+                </div>
+                <div id="formError" class="error"></div>
+                <div id="formSuccess" class="success"></div>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="search">Ara</label>
+                    <input type="text" id="search" oninput="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Durum filtresi</label>
+                    <select id="statusFilter" onchange="applyFilters()">
+                        <option value="">Hepsi</option>
+                        <option value="todo">Yapılacak</option>
+                        <option value="doing">Sürüyor</option>
+                        <option value="done">Tamamlandı</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="priorityFilter">Öncelik filtresi</label>
+                    <select id="priorityFilter" onchange="applyFilters()">
+                        <option value="">Hepsi</option>
+                        <option value="low">Düşük</option>
+                        <option value="normal">Normal</option>
+                        <option value="high">Yüksek</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="task-list" id="taskList">
+                <div class="empty-state" id="emptyState">Henüz görev eklemediniz</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = null;
+        let editingTaskId = null;
+        
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/me');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.username;
+                    document.getElementById('usernameDisplay').textContent = data.username;
+                    document.getElementById('loginForm').style.display = 'none';
+                    document.getElementById('appContainer').style.display = 'block';
+                    await loadStats();
+                    await loadTasks();
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+            }
+        }
+        
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                document.getElementById('loginError').textContent = 'Kullanıcı adı ve parola gerekli';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': window.location.origin
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.username;
+                    document.getElementById('loginSuccess').textContent = 'Giriş başarılı!';
+                    setTimeout(() => {
+                        document.getElementById('loginForm').style.display = 'none';
+                        document.getElementById('appContainer').style.display = 'block';
+                        document.getElementById('usernameDisplay').textContent = data.username;
+                        loadStats();
+                        loadTasks();
+                    }, 500);
+                } else {
+                    const error = await response.json();
+                    document.getElementById('loginError').textContent = error.error || 'Giriş başarısız';
+                }
+            } catch (error) {
+                document.getElementById('loginError').textContent = 'Bir hata oluştu';
+                console.error('Login error:', error);
+            }
+        }
+        
+        async function logout() {
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Origin': window.location.origin
+                    }
+                });
+                currentUser = null;
+                document.getElementById('appContainer').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+        
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('totalCount').textContent = stats.total;
+                    document.getElementById('todoCount').textContent = stats.todo;
+                    document.getElementById('doingCount').textContent = stats.doing;
+                    document.getElementById('doneCount').textContent = stats.done;
+                }
+            } catch (error) {
+                console.error('Stats load error:', error);
+            }
+        }
+        
+        async function loadTasks() {
+            try {
+                const params = new URLSearchParams();
+                const search = document.getElementById('search').value;
+                const status = document.getElementById('statusFilter').value;
+                const priority = document.getElementById('priorityFilter').value;
+                
+                if (search) params.append('q', search);
+                if (status) params.append('status', status);
+                if (priority) params.append('priority', priority);
+                
+                const response = await fetch(`/api/tasks?${params.toString()}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayTasks(data.items);
+                }
+            } catch (error) {
+                console.error('Tasks load error:', error);
+            }
+        }
+        
+        function displayTasks(tasks) {
+            const taskList = document.getElementById('taskList');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (tasks.length === 0) {
+                emptyState.style.display = 'block';
+                taskList.innerHTML = '';
+            } else {
+                emptyState.style.display = 'none';
+                taskList.innerHTML = tasks.map(task => `
+                    <div class="task-item">
+                        <div class="task-info">
+                            <div class="task-title">${escapeHtml(task.title)}</div>
+                            <div class="task-meta">
+                                ${task.description ? escapeHtml(task.description) + ' | ' : ''}
+                                Durum: ${task.status === 'todo' ? 'Yapılacak' : task.status === 'doing' ? 'Sürüyor' : 'Tamamlandı'} | 
+                                Öncelik: ${task.priority === 'low' ? 'Düşük' : task.priority === 'normal' ? 'Normal' : 'Yüksek'}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button onclick="editTask(${task.id})" class="btn-secondary">Düzenle</button>
+                            <button onclick="deleteTask(${task.id})" class="btn-danger">Sil</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function applyFilters() {
+            loadTasks();
+        }
+        
+        function resetForm() {
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskStatus').value = 'todo';
+            document.getElementById('taskPriority').value = 'normal';
+            document.getElementById('formError').textContent = '';
+            document.getElementById('formSuccess').textContent = '';
+            editingTaskId = null;
+        }
+        
+        async function saveTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            const description = document.getElementById('taskDescription').value;
+            const status = document.getElementById('taskStatus').value;
+            const priority = document.getElementById('taskPriority').value;
+            
+            if (!title) {
+                document.getElementById('formError').textContent = 'Başlık gerekli';
+                return;
+            }
+            
+            try {
+                const method = editingTaskId ? 'PUT' : 'POST';
+                const url = editingTaskId ? `/api/tasks/${editingTaskId}` : '/api/tasks';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': window.location.origin
+                    },
+                    body: JSON.stringify({ title, description, status, priority })
+                });
+                
+                if (response.ok) {
+                    const task = await response.json();
+                    document.getElementById('formSuccess').textContent = 'Görev kaydedildi!';
+                    setTimeout(() => {
+                        resetForm();
+                        loadTasks();
+                        loadStats();
+                    }, 500);
+                } else {
+                    const error = await response.json();
+                    document.getElementById('formError').textContent = error.error || 'Bir hata oluştu';
+                }
+            } catch (error) {
+                document.getElementById('formError').textContent = 'Bir hata oluştu';
+                console.error('Save task error:', error);
+            }
+        }
+        
+        async function editTask(id) {
+            try {
+                const response = await fetch(`/api/tasks/${id}`);
+                if (response.ok) {
+                    const task = await response.json();
+                    document.getElementById('taskTitle').value = task.title;
+                    document.getElementById('taskDescription').value = task.description || '';
+                    document.getElementById('taskStatus').value = task.status;
+                    document.getElementById('taskPriority').value = task.priority;
+                    editingTaskId = id;
+                    document.getElementById('taskForm').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                console.error('Edit task error:', error);
+            }
+        }
+        
+        async function deleteTask(id) {
+            if (confirm('Bu görevi silmek istediğinizden emin misiniz?')) {
+                try {
+                    const response = await fetch(`/api/tasks/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Origin': window.location.origin
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        loadTasks();
+                        loadStats();
+                    } else {
+                        alert('Görev silme hatası');
+                    }
+                } catch (error) {
+                    console.error('Delete task error:', error);
+                }
+            }
+        }
+        
+        function cancelEdit() {
+            resetForm();
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Initialize
+        checkAuth();
+    </script>
+</body>
+</html>

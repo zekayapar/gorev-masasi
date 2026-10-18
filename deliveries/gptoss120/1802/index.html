@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Görev Masası</title>
+<style>
+  body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5;}
+  .container {max-width: 800px; margin:auto; padding:1rem;}
+  header {display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;}
+  h1 {margin:0; font-size:1.5rem;}
+  button {cursor:pointer;}
+  form {background:#fff; padding:1rem; margin-bottom:1rem; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,.1);}
+  label {display:block; margin-top:.5rem;}
+  input, textarea, select {width:100%; padding:.5rem; margin-top:.2rem; box-sizing:border-box;}
+  .task {background:#fff; padding:.8rem; margin-bottom:.5rem; border-left:4px solid #2196F3; border-radius:3px;}
+  .task.done {border-left-color:#4CAF50;}
+  .task.doing {border-left-color:#FF9800;}
+  .task-actions {margin-top:.5rem;}
+  .task-actions button {margin-right:.5rem;}
+  .counters {display:flex; gap:1rem; margin-bottom:1rem;}
+  .counters div {background:#fff; flex:1; padding:.5rem; text-align:center; border-radius:3px; box-shadow:0 1px 2px rgba(0,0,0,.1);}
+  @media (max-width:390px) { .counters {flex-direction:column;} }
+  .msg {padding:.5rem; margin-bottom:.5rem; border-radius:3px;}
+  .msg.success {background:#e8f5e9; color:#2e7d32;}
+  .msg.error {background:#ffebee; color:#c62828;}
+</style>
+</head>
+<body>
+<div class="container">
+  <header id="header" style="display:none;">
+    <h1 id="welcome"></h1>
+    <button id="logoutBtn">Çıkış yap</button>
+  </header>
+
+  <section id="loginSection">
+    <h2>Giriş</h2>
+    <form id="loginForm">
+      <label for="username">Kullanıcı adı</label>
+      <input type="text" id="username" required>
+      <label for="password">Parola</label>
+      <input type="password" id="password" required>
+      <button type="submit">Giriş yap</button>
+    </form>
+    <p>Demo hesaplar:</p>
+    <ul>
+      <li>zeka / deneme-zeka-2026</li>
+      <li>yapar / deneme-yapar-2026</li>
+    </ul>
+  </section>
+
+  <section id="appSection" style="display:none;">
+    <div class="counters">
+      <div id="cntTotal">Toplam: 0</div>
+      <div id="cntTodo">Yapılacak: 0</div>
+      <div id="cntDoing">Sürüyor: 0</div>
+      <div id="cntDone">Tamamlandı: 0</div>
+    </div>
+
+    <form id="taskForm">
+      <h3 id="formTitle">Yeni Görev</h3>
+      <label for="taskTitle">Başlık</label>
+      <input type="text" id="taskTitle" maxlength="120" required>
+      <label for="taskDesc">Açıklama</label>
+      <textarea id="taskDesc" rows="3" maxlength="1000"></textarea>
+      <label for="taskStatus">Durum</label>
+      <select id="taskStatus">
+        <option value="todo">Yapılacak</option>
+        <option value="doing">Sürüyor</option>
+        <option value="done">Tamamlandı</option>
+      </select>
+      <label for="taskPriority">Öncelik</label>
+      <select id="taskPriority">
+        <option value="low">Düşük</option>
+        <option value="normal" selected>Normal</option>
+        <option value="high">Yüksek</option>
+      </select>
+      <button type="submit" id="saveBtn">Kaydet</button>
+      <button type="button" id="cancelEditBtn" style="display:none;">Vazgeç</button>
+    </form>
+
+    <div>
+      <label for="filterQ">Ara</label>
+      <input type="text" id="filterQ" placeholder="Başlık veya açıklama">
+      <label for="filterStatus">Durum filtresi</label>
+      <select id="filterStatus">
+        <option value="">Hepsi</option>
+        <option value="todo">Yapılacak</option>
+        <option value="doing">Sürüyor</option>
+        <option value="done">Tamamlandı</option>
+      </select>
+      <label for="filterPriority">Öncelik filtresi</label>
+      <select id="filterPriority">
+        <option value="">Hepsi</option>
+        <option value="low">Düşük</option>
+        <option value="normal">Normal</option>
+        <option value="high">Yüksek</option>
+      </select>
+      <button id="applyFilterBtn">Filtrele</button>
+    </div>
+
+    <div id="msgBox"></div>
+    <div id="taskList"></div>
+  </section>
+</div>
+<script>
+const apiBase = '/api';
+let editTaskId = null;
+
+function showMessage(text, type='success') {
+  const box = document.getElementById('msgBox');
+  box.textContent = text;
+  box.className = 'msg ' + (type==='success' ? 'success' : 'error');
+  setTimeout(()=>{box.textContent=''; box.className='';},3000);
+}
+
+function fetchJSON(url, opts={}) {
+  return fetch(url, opts).then(r=>{
+    if (!r.ok) return r.json().then(err=>{throw err;});
+    return r.json();
+  });
+}
+
+function loadUser() {
+  fetchJSON(`${apiBase}/me`).then(data=>{
+    document.getElementById('welcome').textContent = `Hoş geldiniz, ${data.username}`;
+    document.getElementById('header').style.display='flex';
+    document.getElementById('loginSection').style.display='none';
+    document.getElementById('appSection').style.display='block';
+    loadCounters();
+    loadTasks();
+  }).catch(()=>{ /* not logged in */ });
+}
+
+function logout() {
+  fetchJSON(`${apiBase}/logout`, {method:'POST'}).then(()=>{
+    document.getElementById('header').style.display='none';
+    document.getElementById('appSection').style.display='none';
+    document.getElementById('loginSection').style.display='block';
+    showMessage('Çıkış yapıldı');
+  }).catch(err=>showMessage(err.error||'Hata', 'error'));
+}
+
+function login(e){
+  e.preventDefault();
+  const username=document.getElementById('username').value.trim();
+  const password=document.getElementById('password').value;
+  fetchJSON(`${apiBase}/login`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({username,password})})
+    .then(()=>{loadUser();})
+    .catch(err=>showMessage(err.error||'Giriş başarısız', 'error'));
+}
+
+function loadCounters(){
+  fetchJSON(`${apiBase}/stats`).then(stats=>{
+    document.getElementById('cntTotal').textContent='Toplam: '+stats.total;
+    document.getElementById('cntTodo').textContent='Yapılacak: '+stats.todo;
+    document.getElementById('cntDoing').textContent='Sürüyor: '+stats.doing;
+    document.getElementById('cntDone').textContent='Tamamlandı: '+stats.done;
+  }).catch(err=>showMessage(err.error||'Hata', 'error'));
+}
+
+function renderTask(task){
+  const div=document.createElement('div');
+  div.className='task '+task.status;
+  const title=document.createElement('strong');
+  title.textContent=task.title;
+  div.appendChild(title);
+  if(task.description){
+    const p=document.createElement('p');
+    p.textContent=task.description;
+    div.appendChild(p);
+  }
+  const meta=document.createElement('small');
+  meta.textContent=`Durum: ${statusLabel(task.status)} | Öncelik: ${priorityLabel(task.priority)}`;
+  div.appendChild(meta);
+  const actions=document.createElement('div');
+  actions.className='task-actions';
+  const editBtn=document.createElement('button');
+  editBtn.textContent='Düzenle';
+  editBtn.onclick=()=>{populateEdit(task);};
+  const delBtn=document.createElement('button');
+  delBtn.textContent='Sil';
+  delBtn.onclick=()=>{deleteTask(task.id);};
+  actions.appendChild(editBtn);
+  actions.appendChild(delBtn);
+  div.appendChild(actions);
+  return div;
+}
+
+function statusLabel(v){return {'todo':'Yapılacak','doing':'Sürüyor','done':'Tamamlandı'}[v]||v;}
+function priorityLabel(v){return {'low':'Düşük','normal':'Normal','high':'Yüksek'}[v]||v;}
+
+function loadTasks(){
+  const q=document.getElementById('filterQ').value.trim();
+  const status=document.getElementById('filterStatus').value;
+  const priority=document.getElementById('filterPriority').value;
+  const params=new URLSearchParams();
+  if(q) params.append('q',q);
+  if(status) params.append('status',status);
+  if(priority) params.append('priority',priority);
+  fetchJSON(`${apiBase}/tasks?${params.toString()}`)
+    .then(data=>{
+      const list=document.getElementById('taskList');
+      list.innerHTML='';
+      if(data.items.length===0){list.textContent='Görev bulunamadı.';}
+      else{data.items.forEach(t=>list.appendChild(renderTask(t)));}
+    }).catch(err=>showMessage(err.error||'Hata', 'error'));
+}
+
+function submitTask(e){
+  e.preventDefault();
+  const title=document.getElementById('taskTitle').value.trim();
+  const description=document.getElementById('taskDesc').value.trim();
+  const status=document.getElementById('taskStatus').value;
+  const priority=document.getElementById('taskPriority').value;
+  const payload={title, description, status, priority};
+  const method=editTaskId? 'PUT' : 'POST';
+  const url=editTaskId? `${apiBase}/tasks/${editTaskId}` : `${apiBase}/tasks`;
+  fetchJSON(url, {method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+    .then(()=>{showMessage('Görev kaydedildi'); resetForm(); loadTasks(); loadCounters();})
+    .catch(err=>showMessage(err.error||'Hata', 'error'));
+}
+
+function populateEdit(task){
+  editTaskId=task.id;
+  document.getElementById('taskTitle').value=task.title;
+  document.getElementById('taskDesc').value=task.description;
+  document.getElementById('taskStatus').value=task.status;
+  document.getElementById('taskPriority').value=task.priority;
+  document.getElementById('formTitle').textContent='Görevi Düzenle';
+  document.getElementById('cancelEditBtn').style.display='inline';
+}
+
+function resetForm(){
+  editTaskId=null;
+  document.getElementById('taskForm').reset();
+  document.getElementById('formTitle').textContent='Yeni Görev';
+  document.getElementById('cancelEditBtn').style.display='none';
+}
+
+function deleteTask(id){
+  if(!confirm('Bu görevi silmek istediğinize emin misiniz?')) return;
+  fetchJSON(`${apiBase}/tasks/${id}`, {method:'DELETE'})
+    .then(()=>{showMessage('Görev silindi'); loadTasks(); loadCounters();})
+    .catch(err=>showMessage(err.error||'Hata', 'error'));
+}
+
+document.getElementById('loginForm').addEventListener('submit',login);
+document.getElementById('logoutBtn').addEventListener('click',logout);
+document.getElementById('taskForm').addEventListener('submit',submitTask);
+document.getElementById('cancelEditBtn').addEventListener('click',resetForm);
+document.getElementById('applyFilterBtn').addEventListener('click',loadTasks);
+
+window.addEventListener('load',loadUser);
+</script>
+</body>
+</html>

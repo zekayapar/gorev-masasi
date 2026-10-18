@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Görev Masası</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172b3a;background:#eef3f6;line-height:1.5;color-scheme:light}*{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:24px 18px 48px}h1{margin:0;font-size:1.8rem}h2{margin:0 0 16px;font-size:1.2rem}p{margin:8px 0 16px}.muted{color:#526574}.card{background:white;border:1px solid #d8e2e8;border-radius:12px;padding:22px;box-shadow:0 3px 14px #152c3e08}.login{max-width:440px;margin:32px auto}.brand{margin-bottom:22px}label{display:block;font-weight:600;margin-bottom:5px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;border:1px solid #8297a7;border-radius:6px;padding:10px;background:white;color:#172b3a}textarea{resize:vertical;min-height:110px}input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #e5a500;outline-offset:3px}button{border:1px solid #176253;border-radius:6px;background:#176253;color:white;padding:10px 16px;cursor:pointer;font-weight:600;min-height:44px}button:hover{background:#104d41}button:disabled{cursor:wait;opacity:.6}.secondary{background:white;color:#234d66;border-color:#8297a7}.secondary:hover{background:#edf4f7}.danger{background:white;color:#a12431;border-color:#bd7380}.danger:hover{background:#fff0f1}.field{margin-bottom:16px}.actions{display:flex;flex-wrap:wrap;gap:9px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.account{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{padding:15px;border:1px solid #d8e2e8;border-radius:10px;background:white}.stat strong{display:block;font-size:1.7rem;color:#176253}.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.filters{display:grid;grid-template-columns:minmax(100px,1.4fr) minmax(90px,1fr) minmax(90px,1fr);gap:12px}.filters .field{margin-bottom:12px}.filters button{grid-column:1/-1;justify-self:start}.list-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-top:24px}.list-head p{font-size:.9rem}.tasks{list-style:none;padding:0;margin:0}.task{padding:18px 0;border-top:1px solid #dce5eb}.task h3{font-size:1.05rem;margin:0 0 7px;white-space:pre-wrap;overflow-wrap:anywhere}.description{white-space:pre-wrap;overflow-wrap:anywhere;color:#405464;margin:8px 0 12px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.tag{font-size:.82rem;background:#eaf1f5;border-radius:5px;padding:3px 8px}.tag.high{background:#fff0d4;color:#795000}.tag.done{background:#e2f3ea;color:#155e38}.notice{border-radius:7px;padding:12px 15px;margin:0 0 20px;border:1px solid #83bda0;background:#edf9f1;color:#174d2b;overflow-wrap:anywhere}.notice.error{border-color:#da98a0;background:#fff0f1;color:#8e1c29}.demo{font-size:.9rem;margin-top:22px;border-top:1px solid #dce5eb;padding-top:15px}.demo code{overflow-wrap:anywhere}#empty{padding:25px 0;color:#526574;text-align:center}[hidden]{display:none!important}@media(max-width:820px){.layout{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.filters .search{grid-column:1/-1}}@media(max-width:480px){main{padding:18px 12px 32px}.card{padding:17px}.topbar{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px}.login{margin:20px auto}.account{width:100%;justify-content:space-between}.list-head{align-items:flex-start;flex-direction:column;gap:0}.list-head h2{margin-bottom:0}}
+</style>
+</head>
+<body>
+<main>
+<div class="brand"><h1>Görev Masası</h1><p class="muted">Gününüzü küçük, tamamlanabilir adımlarla düzenleyin.</p></div>
+<div id="notice" class="notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+<p id="loading" role="status">Oturum kontrol ediliyor…</p>
+<section id="login-panel" class="card login" aria-labelledby="login-heading" hidden>
+<h2 id="login-heading">Hoş geldiniz</h2>
+<form id="login-form">
+<div class="field"><label for="username">Kullanıcı adı</label><input id="username" name="username" autocomplete="username" required></div>
+<div class="field"><label for="password">Parola</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+<button id="login-button" type="submit">Giriş yap</button>
+</form>
+<div class="demo"><strong>Deneme hesapları</strong><p><code>zeka / deneme-zeka-2026</code><br><code>yapar / deneme-yapar-2026</code></p><span class="muted">Her hesabın görevleri ayrıdır.</span></div>
+</section>
+<section id="workspace" aria-label="Görev çalışma alanı" hidden>
+<header class="topbar"><h2>Görevlerim</h2><div class="account"><span>Hesap: <strong id="account-name"></strong></span><button id="logout-button" type="button" class="secondary">Çıkış yap</button></div></header>
+<div class="stats" aria-label="Tüm görevlerin özeti">
+<div class="stat">Toplam<strong id="count-total">0</strong></div>
+<div class="stat">Yapılacak<strong id="count-todo">0</strong></div>
+<div class="stat">Sürüyor<strong id="count-doing">0</strong></div>
+<div class="stat">Tamamlandı<strong id="count-done">0</strong></div>
+</div>
+<div class="layout">
+<section class="card" aria-labelledby="form-heading">
+<h2 id="form-heading">Yeni görev</h2>
+<form id="task-form">
+<div class="field"><label for="title">Başlık</label><input id="title" name="title" maxlength="120" required></div>
+<div class="field"><label for="description">Açıklama</label><textarea id="description" name="description" maxlength="1000" rows="4"></textarea></div>
+<div class="field"><label for="status">Durum</label><select id="status" name="status"><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div>
+<div class="field"><label for="priority">Öncelik</label><select id="priority" name="priority"><option value="low">Düşük</option><option value="normal" selected>Normal</option><option value="high">Yüksek</option></select></div>
+<div class="actions"><button id="save-button" type="submit">Kaydet</button><button id="cancel-button" type="button" class="secondary" hidden>Vazgeç</button></div>
+</form>
+</section>
+<section class="card" aria-labelledby="list-heading">
+<form id="filter-form" class="filters" aria-label="Görev filtreleri">
+<div class="field search"><label for="search">Ara</label><input id="search" name="q" type="search" placeholder="Başlık veya açıklama"></div>
+<div class="field"><label for="filter-status">Durum filtresi</label><select id="filter-status" name="status"><option value="">Tümü</option><option value="todo">Yapılacak</option><option value="doing">Sürüyor</option><option value="done">Tamamlandı</option></select></div>
+<div class="field"><label for="filter-priority">Öncelik filtresi</label><select id="filter-priority" name="priority"><option value="">Tümü</option><option value="low">Düşük</option><option value="normal">Normal</option><option value="high">Yüksek</option></select></div>
+<button type="submit" class="secondary">Filtrele</button>
+</form>
+<div class="list-head"><h2 id="list-heading">Görev listesi</h2><p id="result-count" class="muted" aria-live="polite"></p></div>
+<p id="empty" hidden>Henüz görev yok. İlk görevinizi ekleyin.</p>
+<ul id="tasks" class="tasks"></ul>
+</section>
+</div>
+</section>
+</main>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const statusNames = {todo:'Yapılacak', doing:'Sürüyor', done:'Tamamlandı'};
+const priorityNames = {low:'Düşük', normal:'Normal', high:'Yüksek'};
+let editingId = null;
+let refreshVersion = 0;
+let searchTimer = null;
+let sessionVersion = 0;
+
+function feedback(message, error = false) {
+  const box = byId('notice');
+  box.textContent = message;
+  box.className = error ? 'notice error' : 'notice';
+  box.hidden = !message;
+}
+function resetEditor() {
+  editingId = null;
+  byId('task-form').reset();
+  byId('form-heading').textContent = 'Yeni görev';
+  byId('cancel-button').hidden = true;
+}
+function showLogin() {
+  sessionVersion++;
+  refreshVersion++;
+  clearTimeout(searchTimer);
+  byId('workspace').hidden = true;
+  byId('login-panel').hidden = false;
+  byId('loading').hidden = true;
+  byId('account-name').textContent = '';
+  byId('tasks').replaceChildren();
+  byId('result-count').textContent = '';
+  byId('login-form').reset();
+  byId('filter-form').reset();
+  resetEditor();
+}
+function showWorkspace(username) {
+  sessionVersion++;
+  byId('loading').hidden = true;
+  byId('login-panel').hidden = true;
+  byId('workspace').hidden = false;
+  byId('account-name').textContent = username;
+  byId('password').value = '';
+  for (const key of ['total','todo','doing','done']) byId('count-' + key).textContent = '0';
+}
+async function api(path, options = {}) {
+  const settings = {method: options.method || 'GET', credentials:'same-origin', headers:{}};
+  if (options.body !== undefined) {
+    settings.headers['Content-Type'] = 'application/json';
+    settings.body = JSON.stringify(options.body);
+  }
+  let response;
+  try { response = await fetch(path, settings); }
+  catch (_) { throw new Error('Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.'); }
+  let data;
+  try { data = await response.json(); }
+  catch (_) { throw new Error('Sunucudan geçerli bir yanıt alınamadı.'); }
+  if (!response.ok) {
+    if (response.status === 401 && !byId('workspace').hidden) showLogin();
+    throw new Error(data.error || 'İşlem tamamlanamadı.');
+  }
+  return data;
+}
+function editTask(task) {
+  editingId = task.id;
+  byId('title').value = task.title;
+  byId('description').value = task.description;
+  byId('status').value = task.status;
+  byId('priority').value = task.priority;
+  byId('form-heading').textContent = 'Görevi düzenle';
+  byId('cancel-button').hidden = false;
+  byId('title').focus();
+}
+function renderTasks(items) {
+  const fragment = document.createDocumentFragment();
+  for (const task of items) {
+    const row = document.createElement('li');
+    row.className = 'task';
+    const title = document.createElement('h3');
+    title.textContent = task.title;
+    row.append(title);
+    if (task.description) {
+      const description = document.createElement('p');
+      description.className = 'description';
+      description.textContent = task.description;
+      row.append(description);
+    }
+    const tags = document.createElement('div');
+    tags.className = 'tags';
+    const status = document.createElement('span');
+    status.className = 'tag ' + task.status;
+    status.textContent = statusNames[task.status];
+    const priority = document.createElement('span');
+    priority.className = 'tag ' + task.priority;
+    priority.textContent = 'Öncelik: ' + priorityNames[task.priority];
+    tags.append(status, priority);
+    row.append(tags);
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+    const edit = document.createElement('button');
+    edit.type = 'button'; edit.className = 'secondary'; edit.textContent = 'Düzenle';
+    edit.setAttribute('aria-label', 'Düzenle: ' + task.title);
+    edit.addEventListener('click', () => editTask(task));
+    const remove = document.createElement('button');
+    remove.type = 'button'; remove.className = 'danger'; remove.textContent = 'Sil';
+    remove.setAttribute('aria-label', 'Sil: ' + task.title);
+    remove.addEventListener('click', async () => {
+      if (!window.confirm('“' + task.title + '” görevi silinsin mi?')) return;
+      remove.disabled = true;
+      const version = sessionVersion;
+      try {
+        await api('/api/tasks/' + task.id, {method:'DELETE'});
+        if (version !== sessionVersion) return;
+        if (editingId === task.id) resetEditor();
+        feedback('Görev silindi.');
+        await refresh();
+      } catch (error) { feedback(error.message, true); }
+      finally { remove.disabled = false; }
+    });
+    actions.append(edit, remove);
+    row.append(actions);
+    fragment.append(row);
+  }
+  byId('tasks').replaceChildren(fragment);
+}
+async function refresh() {
+  const version = ++refreshVersion;
+  const params = new URLSearchParams({q:byId('search').value, status:byId('filter-status').value, priority:byId('filter-priority').value});
+  const [list, stats] = await Promise.all([api('/api/tasks?' + params.toString()), api('/api/stats')]);
+  if (version !== refreshVersion || byId('workspace').hidden) return;
+  renderTasks(list.items);
+  byId('result-count').textContent = list.total + ' görev gösteriliyor';
+  byId('empty').hidden = list.items.length !== 0;
+  const filtered = byId('search').value || byId('filter-status').value || byId('filter-priority').value;
+  byId('empty').textContent = filtered ? 'Bu filtrelerle eşleşen görev bulunamadı.' : 'Henüz görev yok. İlk görevinizi ekleyin.';
+  for (const key of ['total','todo','doing','done']) byId('count-' + key).textContent = String(stats[key]);
+}
+async function applyFilters() {
+  clearTimeout(searchTimer);
+  try { await refresh(); }
+  catch (error) { feedback(error.message, true); }
+}
+byId('login-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const button = byId('login-button');
+  button.disabled = true;
+  feedback('');
+  try {
+    const user = await api('/api/login', {method:'POST', body:{username:byId('username').value, password:byId('password').value}});
+    showWorkspace(user.username);
+    feedback('Giriş yapıldı.');
+    await refresh();
+  } catch (error) { feedback(error.message, true); }
+  finally { button.disabled = false; }
+});
+byId('logout-button').addEventListener('click', async () => {
+  const button = byId('logout-button');
+  button.disabled = true;
+  try {
+    await api('/api/logout', {method:'POST'});
+    showLogin();
+    feedback('Çıkış yapıldı.');
+    byId('username').focus();
+  } catch (error) { feedback(error.message, true); }
+  finally { button.disabled = false; }
+});
+byId('task-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const title = byId('title').value.trim();
+  if (!title) { feedback('Başlık boş bırakılamaz.', true); byId('title').focus(); return; }
+  const body = {title, description:byId('description').value, status:byId('status').value, priority:byId('priority').value};
+  const id = editingId;
+  const version = sessionVersion;
+  const button = byId('save-button');
+  button.disabled = true;
+  try {
+    await api(id === null ? '/api/tasks' : '/api/tasks/' + id, {method:id === null ? 'POST' : 'PUT', body});
+    if (version !== sessionVersion) return;
+    resetEditor();
+    feedback(id === null ? 'Görev eklendi.' : 'Görev güncellendi.');
+    await refresh();
+  } catch (error) { feedback(error.message, true); }
+  finally { button.disabled = false; }
+});
+byId('cancel-button').addEventListener('click', () => { resetEditor(); byId('title').focus(); });
+byId('filter-form').addEventListener('submit', event => { event.preventDefault(); applyFilters(); });
+byId('filter-status').addEventListener('change', applyFilters);
+byId('filter-priority').addEventListener('change', applyFilters);
+byId('search').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(applyFilters, 300); });
+async function start() {
+  try {
+    const user = await api('/api/me');
+    showWorkspace(user.username);
+    await refresh();
+  } catch (error) {
+    if (byId('workspace').hidden) showLogin();
+    feedback(error.message, true);
+  }
+}
+start();
+</script>
+</body>
+</html>
