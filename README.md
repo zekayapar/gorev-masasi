@@ -1,6 +1,8 @@
-# Görev Masası — model uygulama teslimi karşılaştırması
+# Görev Masası
 
-Aynı küçük iş takip uygulaması: Codex GPT-6.1 Sol/medium ve dört yerel profil, üçer bağımsız tekrar. 15 son teslim, 39 ana model çağrısı. İlk teslimden sonra en fazla iki dış test geri bildirimiyle düzeltme. Ürün kodları ilgili modelin çıktısıdır; elle onarılmadı. Başarısız ve çalıştırılamayan örnekler de korunur.
+Görev ekleme, durum ve öncelik değiştirme, arama ve hesaplara göre veri ayrımı olan küçük bir web uygulaması. Python standart kütüphanesi, SQLite ve vanilla JavaScript kullanıyor.
+
+Bu depoda aynı uygulamayı üreten beş modelin sürümleri bulunuyor: Codex GPT-6.1 Sol/medium ve dört yerel profil, üçer bağımsız tekrar. 15 son teslim, 39 ana model çağrısı. İlk teslimden sonra en fazla iki dış test geri bildirimiyle düzeltme. Ürün kodları ilgili modelin çıktısıdır; elle onarılmadı. Başarısız ve çalıştırılamayan örnekler de korunur.
 
 [Yazı ve ayrıntılı değerlendirme](https://zekayapar.com/yazi/model-uygulama-teslimi) · [Hazırlık notları](https://zekayapar.com/yazi/model-uygulama-teslimi-notlari)
 
@@ -21,8 +23,8 @@ Aynı küçük iş takip uygulaması: Codex GPT-6.1 Sol/medium ve dört yerel pr
 Python 3.12 ve standart kütüphane kullanılır. Örnek, Codex ilk tekrar:
 
 ```bash
-git clone https://github.com/zekayapar/model-uygulama-teslimi.git
-cd model-uygulama-teslimi/deliveries/codex/1800
+git clone https://github.com/zekayapar/gorev-masasi.git
+cd gorev-masasi/deliveries/codex/1800
 python3.12 app.py --port 18100 --db /tmp/zeka-gorev-masasi.sqlite
 ```
 
